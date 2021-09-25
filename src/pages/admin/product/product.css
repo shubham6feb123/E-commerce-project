@@ -1,0 +1,49 @@
+.admin__Product{
+min-width: 100%;
+min-height: 100vh;
+margin-top: 129px;
+display: flex;
+justify-content: center;
+}
+
+.admin__product__wrapper{
+ margin-top: 14px;
+min-width: 40em;
+/* background: aqua; */
+min-height: 20em;
+margin-bottom: 20px;
+background: #80808021;
+border-radius: 12px;
+/* text-align: center; */
+/* padding: 0px 20px 0 0; */
+}
+
+.product__form{
+    display: flex;
+    flex-direction: column;
+    padding: 2px 5px;
+}
+
+.input__field{
+display: flex;
+justify-content: center;
+flex-direction: column;
+margin-bottom:12px;
+}
+
+.input__field >label{
+ font-size: 18px;
+font-weight: 500;
+/* letter-spacing: 2px; */
+margin-bottom: 5px;
+}
+
+.input__field  .input{
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    outline: none;
+    padding: 0 7px;
+}
+
+

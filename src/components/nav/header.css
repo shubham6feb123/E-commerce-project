@@ -1,0 +1,148 @@
+.header {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(42, 42, 150, 0.5);
+  justify-content: space-between;
+  z-index: 12;
+  height: 69px;
+}
+
+.header__logo {
+  align-self: flex-start;
+}
+
+.header__logo > a > img {
+  width: 57px;
+  padding: 3px 3px;
+  background-color: white;
+  border-radius: 50%;
+  margin-left: 6px;
+  margin: 6px;
+  box-shadow: -1px -1px 10px -4px gray;
+}
+
+.header__logo > a {
+  border-radius: 72%;
+  width: 99%;
+  display: block;
+}
+
+.header__searchbar {
+  background: aliceblue;
+  border-radius: 3px;
+  padding: 2px;
+  box-shadow: 0px 0px 22px -7px #686767e6;
+  margin-right: auto;
+  margin-left: 38px;
+  display: flex;
+align-items: center;
+flex: .7;
+}
+
+.header__searchbar > input {
+  outline: none;
+  border: none;
+  width: 93%;
+  padding: 2px;
+  border-radius: 20px;
+  background-color: transparent;
+  color: #464343;
+  flex: 1;
+}
+
+.anticon-search {
+  padding: 3px;
+}
+.anticon-search > svg {
+  color: #0000009e;
+}
+
+.header__navigationOptions {
+  width: 13%;
+  display: flex;
+  justify-content: flex-end;
+  justify-content: space-between;
+  margin-right: 6px;
+}
+
+.anticon {
+  cursor: pointer;
+}
+.anticon-shop > svg {
+  width: 36px !important;
+  height: 36px;
+  color: #686767;
+}
+
+.anticon-shopping-cart {
+  margin: 0px 2px;
+}
+.anticon-shopping-cart > svg {
+  width: 36px !important;
+  height: 36px;
+  color: #686767;
+}
+
+.anticon-user > svg {
+  width: 36px !important;
+  height: 36px;
+  color: #686767;
+}
+
+/* USER__DROPDOWN */
+.header__user__dropdown {
+  position: fixed;
+  right: 2px;
+  top: 69px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 22px -7px #686767e6;
+  transform: translateX(108%);
+  transition: transform 0.5s ease-in-out;
+  z-index: 14;
+}
+
+.header__user__dropdown > ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.header__user__dropdown > ul > li {
+  list-style-type: none;
+  margin: 11px;
+}
+
+.header__user__dropdown > ul > li > a {
+  color: rgb(42, 42, 150);
+}
+
+.header__user__dropdown > ul > li > a:hover {
+  color: rgba(42, 42, 150, 0.767); 
+}
+
+.header__user__dropdown > ul > li > a > span {
+  margin-right: 6px;
+}
+
+.header__user__dropdown__appear {
+  transform: translateX(0%);
+  transition: transform 0.5s ease-in-out;
+}
+
+
+/* header__behind__strip */
+.header__behind__strip{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 69px;
+  background-color: white;
+  z-index: 5;
+}

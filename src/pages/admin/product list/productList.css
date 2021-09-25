@@ -1,0 +1,24 @@
+.product__container{
+    background-color: #ffffff;
+    width: 100%;
+    min-height: 100%;
+    padding: 20px 20px 10px 2px;
+    margin-top: 129px;
+    /* display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(19em, 1fr));
+    justify-content: center;
+    grid-gap: 15px;
+    place-items: center; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+/* media query */
+/* @media screen and (max-width:450px) {
+    .product__container{
+        padding: 10px;
+        grid-template-columns: 1fr;
+    }
+} */

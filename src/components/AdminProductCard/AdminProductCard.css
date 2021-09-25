@@ -1,0 +1,17 @@
+.ant-card{
+margin:0px 20px 20px 20px !important;
+height: 10%;
+}
+.ant-card .ant-card-body{
+    padding: 10px 24px 24px 15px ;
+}
+
+.ant-card .ant-card-body .ant-card-meta-description{
+    letter-spacing: 1px;
+}
+
+@media screen and (max-width:567px) {
+    .ant-card{
+        margin-bottom: 50px !important;
+    }
+}
