@@ -14,12 +14,12 @@
 }
 
  .left__arrow{
-
+ 
     position: absolute;
     width: 52px;
     height: 104px;
-    left: 6px;
-    top: 41%;
+    left: 0px;
+    top: 37%;
     background-color: #ffffff;
     cursor: pointer;
     display: flex;
@@ -30,15 +30,16 @@
     color: black;
     box-shadow: 0 1px 5px 0 rgb(0 0 0 / 11%);
     transition: opacity .1s ease-in;
-
+    /* display: none; */
 }
 
 .right__arrow{
+  
     position: absolute;
     width: 52px;
     height: 104px;
-    right: 6px;
-    top: 41%;
+    right: 0px;
+    top: 37%;
     background-color: #ffffff;
     cursor: pointer;
     display: flex;
@@ -49,8 +50,13 @@
     color: black;
     box-shadow: 0 1px 5px 0 rgb(0 0 0 / 11%);
     transition: opacity .1s ease-in;
+    /* display: none; */
 }
 
-
+@media screen and (max-width:500px) {
+    .right__arrow,.left__arrow{
+        display: none;
+    }
+}
 
 

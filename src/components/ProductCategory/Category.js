@@ -28,7 +28,7 @@ function Category() {
         <div className="category"> 
             <img className="category__img" src="https://rukminim1.flixcart.com/image/312/312/kcp4osw0/computer/t/f/z/asus-na-original-imaftrgwna6snfn8.jpeg?q=70"
             alt="laptops"/>
-            <span>laptops</span>
+            <span>Laptops</span>
         </div>
         </div>
     )

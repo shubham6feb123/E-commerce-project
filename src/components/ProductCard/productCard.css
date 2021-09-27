@@ -1,0 +1,17 @@
+.product__card__container{
+    margin: 10px 0px;
+    border: 1px solid rgba(0,0,0,.1);
+    background-color: #ffffff;
+}
+
+.product__card__label{
+    padding: 15px 20px;
+    border-bottom: 1px solid #0000002e;
+    /* border-top: 1px solid #0000002e; */
+}
+
+.product__card__label>h2{
+    font-size: 22px;
+    line-height: 32px;
+    font-weight: 500;
+}

@@ -6,6 +6,7 @@ import "./home.css"
 //components
 import Carosel from "../components/carousel/Carousel"
 import Category from "../components/ProductCategory/Category";
+import ProductCard from "../components/ProductCard/ProductCard";
 
 function Home() {
   return (
@@ -14,6 +15,7 @@ function Home() {
         <Category/>
         <div className="home__wrapper">
         <Carosel/>
+        <ProductCard/>
         </div>
       </div>
     </>

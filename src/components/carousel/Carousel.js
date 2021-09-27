@@ -40,6 +40,7 @@ function Carosel() {
   }
   return (
     <>
+    <div style={{width:"100%",position:"relative"}}>
       <Carousel
         className="carousel"
         // autoplay={true}
@@ -60,6 +61,7 @@ function Carosel() {
       </div>
       <div className="right__arrow" id="next" onClick={slideNext}>
         <RightOutlined style={{ fontSize: 25 }} />
+      </div>
       </div>
     </>
   );

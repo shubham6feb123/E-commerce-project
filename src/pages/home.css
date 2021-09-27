@@ -1,13 +1,14 @@
 .home{
     width: 100vw;
     min-height: 100vh;
-    margin-top: 69px; 
-    background-color: #e6e2e2cf;
+    /* margin-top: 69px;  */
+    /* background-color: #e6e2e2cf; */
+    background-color: #F1F3F6;
 }
 
 .home__wrapper{
     width: 100vw;
     min-height: 100vh;
-    padding: 10px 20px 0px 6px;
+    padding: 0px 10px 10px 10px;
     /* background-color: #e6e2e2cf; */
 }
