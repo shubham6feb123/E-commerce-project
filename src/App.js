@@ -19,6 +19,7 @@ import UserRoutes from './components/routes/UserRoutes';
 import Password from "./pages/user/Password";
 import AdminRoutes from "./components/routes/AdminRoutes";
 import Dashboard from "./pages/admin/Dashboard";
+import SingleProduct from "./pages/singleProductPage/SingleProduct";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ const App = () => {
         <ToastContainer />
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/:slug" component={SingleProduct} />
           <Route exact path="/shop" component={Shop} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />

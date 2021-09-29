@@ -27,7 +27,7 @@ value?.file?.status ==="removed" && setImages([...value.fileList])
   //  console.log("images uri",uri)
   try {
    const uploadedImg  = await upload(uri,user);
-   console.log("yooo")
+  //  console.log("yooo")
    allUploadedFiles = [...allUploadedFiles,uploadedImg.data];
    console.log("alluploaded files---",allUploadedFiles);
     setValues(prev=>({...prev,images:allUploadedFiles}))

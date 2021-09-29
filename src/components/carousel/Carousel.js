@@ -49,11 +49,11 @@ function Carosel() {
        dots={false}
       >
         {bannerImages.map((image) => (
-          <>
+          
             <div key={image.id} style={{ position: "relative" }}>
               <img className="carousel__img" src={image.src} alt="banner" />
             </div>
-          </>
+          
         ))}
       </Carousel>
       <div className="left__arrow" id="prev" onClick={slidePrev}>

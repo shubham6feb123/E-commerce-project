@@ -1,7 +1,7 @@
 .admin__Product{
 min-width: 100%;
 min-height: 100vh;
-margin-top: 129px;
+/* margin-top: 129px; */
 display: flex;
 justify-content: center;
 }

@@ -36,12 +36,13 @@ function ProductList() {
       if(remove){
         console.log("delete request send",slug)
         DeleteProduct(slug).then((res)=>{
+          console.log("delete response",res)
           toast.success('product deleted',{position:"bottom-right"})
           loadAllProducts();
         }).catch((err)=>{
-          if(err.response.status===400){
+          // if(err.response.status===400){
             toast.error('Product deletion failed',{position:"bottom-right"})
-          }
+          // }
         })
       }
   }

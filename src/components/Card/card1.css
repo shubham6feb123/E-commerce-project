@@ -1,0 +1,61 @@
+.card__container{
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    align-items: center;
+    cursor: pointer;
+    width: 228px;
+    min-height: 236px;
+    background-color: #ffffff;
+    position: relative;
+}
+.card__container .card__image__container{
+    height: 130px;
+    width: 150px;
+    margin: 0 8px;
+}
+
+.card__container .card__image__container img{
+    width: 100%;
+    height: 100%;
+}
+
+.card__label__container{
+text-align: center;
+padding-top: 16px;
+}
+
+.card__label__container a{
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 5px;
+    color: black;
+}
+
+.card__container:hover a{
+    color: #2874f0;
+}
+
+.wishlist__button{
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    display: flex;
+    top: 12px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    right: 12px;
+}
+
+
+.wishlist__button img{
+    width: 100%;
+    height: 100%;
+}
+
+.card__price__container h4{
+    font-size: 16px;
+    font-weight: 600;
+    color: #212121;
+}

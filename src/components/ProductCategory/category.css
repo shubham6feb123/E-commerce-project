@@ -28,9 +28,10 @@ border-bottom: 1px solid #0000002e;
 
 span{
     font-weight: 600;
-    font-size: 14px;
-    text-align: center;
+    /* text-align: center; */
     line-height: 1.4;
+    font-size: 15px;
+    letter-spacing: 1px;
 }
 
 .product__category::-webkit-scrollbar{
