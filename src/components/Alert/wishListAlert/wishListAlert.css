@@ -2,13 +2,17 @@
     display: flex;
     position: fixed;
     bottom: 30px;
+    max-width: fit-content;
     align-items: center;
-    right: 33%;
+    right: 41vw;
+    min-width: fit-content;
+    /* left: 50%; */
+    margin: auto;
     padding: 16px;
     background: #212121;
     border-radius: 2px;
     transform: translateY(100rem);
-    transition: all 1.5s ease-in-out;
+    transition: transform 1.5s ease-in-out;
 }
 
 .clicked{

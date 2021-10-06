@@ -25,7 +25,10 @@ function SingleProduct() {
     alert();
     SetHeartIcon(!heartIcon);
     SetClicked(true);
-    
+    // setTimeout(()=>{
+    //   SetClicked(false);
+    //   console.log("single Product page se ---------->")
+    // },10000)
   }
 
   const anim = ()=>{
