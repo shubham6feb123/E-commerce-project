@@ -16,3 +16,11 @@
     line-height: 32px;
     font-weight: 500;
 }
+
+/* media queries */
+@media  screen and (max-width:465px) {
+    .product__card__container .react-multi-carousel-list li{
+        display: flex;
+        justify-content: center;
+    }
+}

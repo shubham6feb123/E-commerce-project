@@ -7,7 +7,7 @@ import "./card1.css"
 import {NavLink} from "react-router-dom"
 import {HeartFilled } from "@ant-design/icons";
 // import heart from '../Card/icons8-heart.gif';
-import { Tooltip } from 'antd';
+import {Tooltip } from 'antd';
 import CurrencyFormat from "react-currency-format";
 
 
@@ -39,13 +39,13 @@ function Card1({product}) {
 
 
   const anim = ()=>{
-     return <HeartFilled style={{color:"red",fontSize:"16px"}}/>
+     return <HeartFilled style={{color:"#F35355",fontSize:"16px"}}/>
   };
 
     return (
         <div className="card__container">
            <div className="card__image__container">
-               <img alt="product__image" src={product?.images[1].secure_url}/>
+              <NavLink to={`/${product.slug}`}><img alt="product__image" src={product?.images[1].secure_url}/></NavLink> 
            </div>
            <div className="card__label__container">
                <NavLink to={`/${product.slug}`}>

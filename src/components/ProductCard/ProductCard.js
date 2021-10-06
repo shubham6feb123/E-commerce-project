@@ -41,7 +41,7 @@ function ProductCard({ products }) {
         <div className="product__card__label">
           <h2>All Product</h2>
         </div>
-        <Carousel centerMode={true} responsive={responsive}>
+        <Carousel responsive={responsive}>
         {products?.map((product)=>(
           <Card1 key={product._id} product={product}/>
         ))}

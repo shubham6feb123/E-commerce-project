@@ -1,0 +1,11 @@
+.carousel .thumbs-wrapper {
+    margin: 0px 0px 0px 20px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.carousel .thumb.selected, .carousel .thumb:hover {
+    border: 3px solid #2774F0 !important;
+}
+
+/* #2774F0 */

@@ -1,0 +1,21 @@
+.alert__container{
+    display: flex;
+    position: fixed;
+    bottom: 30px;
+    align-items: center;
+    right: 33%;
+    padding: 16px;
+    background: #212121;
+    border-radius: 2px;
+    transform: translateY(100rem);
+    transition: all 1.5s ease-in-out;
+}
+
+.clicked{
+    transform: translateY(0rem);
+}
+
+.remove{
+    transform: translateY(100rem);
+    transition: transform 1.5s 5s ease-in-out;
+}
