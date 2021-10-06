@@ -36,6 +36,15 @@ try {
   console.log("error in product deletion");
   res.status(400).json(error);
 }
+}
 
 
+exports.GetSingleProduct = async (req,res)=>{
+try {
+  const singleProduct = await product.findOne({slug:req.params.slug});
+  res.status(200).json(singleProduct);
+} catch (error) {
+  console.log("error in fetching product");
+  res.status(400).json(error);
+}
 }
