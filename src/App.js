@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Header from "./components/nav/Header";
-import Shop from "./pages/Shop";
+// import Shop from "./pages/Shop";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -60,22 +60,26 @@ const App = () => {
         <ToastContainer />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/:slug" component={SingleProduct} />
-          <Route exact path="/shop" component={Shop} />
+          {/* <Route exact path="/shop" component={Shop} /> */}
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/product/:slug" component={SingleProduct} />
+          <AdminRoutes  path="/admin">
+            <Dashboard/>
+          </AdminRoutes>
           <Route
             exact
             path="/registercomplete"
             component={CompleteRegistrationForm}
           />
           <Route exact path="/forgotpassword" component={ForgotPassword} />
-          <UserRoutes  path="/userhistory" component={History}/>
-          <UserRoutes  path="/userpassword" component={Password}/>
-          <AdminRoutes path="/admin">
-            <Dashboard/>
-          </AdminRoutes>
-          <Route component={NotFound} />
+          <UserRoutes exact path="/userhistory">
+            <History/>
+          </UserRoutes>
+          <UserRoutes  exact path="/userpassword">
+            <Password/>
+          </UserRoutes>
+          <Route exact component={NotFound} />
         </Switch>
       </Router>
     </div>

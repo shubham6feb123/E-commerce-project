@@ -17,15 +17,18 @@ import UpdateCategory from './category/UpdateCategory';
 
 function Dashboard() {
     const {path} = useRouteMatch();
+    // const path  = "/admin";
+    // console.log("path",path);
+    // console.log("useRouteMatch",useRouteMatch());
     return (
         <>
         <div className="dashboard">
            <AdminNav path={path}/>
            <Switch>
-               <Route exact path={`${path}`}>
+           <Route exact path={`${path}`}>
                  <DashboardAdmin/>
                </Route>
-    
+
                <Route exact path={`${path}/product`}>
                  <Product/>
                </Route>

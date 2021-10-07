@@ -25,16 +25,6 @@ function Card1({product}) {
     <CurrencyFormat value={product?.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
   )
 
-// const dikha = ()=>{
-//     return show();
-//     setInterval(()=>{anim()},1000)
-//     // anim();
-// }
-
-//   const show = ()=>{
-//     // showHeartAnim(true);
-//     return (<img src={heart}/>);
-//   }
 
 
 
@@ -45,10 +35,10 @@ function Card1({product}) {
     return (
         <div className="card__container">
            <div className="card__image__container">
-              <NavLink to={`/${product.slug}`}><img alt="product__image" src={product?.images[1].secure_url}/></NavLink> 
+              <NavLink to={`/product/${product.slug}`}><img alt="product__image" src={product?.images[1].secure_url}/></NavLink> 
            </div>
            <div className="card__label__container">
-               <NavLink to={`/${product.slug}`}>
+               <NavLink to={`/product/${product.slug}`}>
                {product?.title.slice(0,60)}...
                </NavLink>
            </div>
