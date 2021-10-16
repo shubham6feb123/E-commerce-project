@@ -18,6 +18,12 @@
 }
 
 /* media queries */
+@media screen and (max-width:500px) {
+    .product__card__container{
+        margin: 0px;
+        border-bottom: none;
+    }
+}
 @media  screen and (max-width:465px) {
     .product__card__container .react-multi-carousel-list li{
         display: flex;

@@ -29,7 +29,7 @@ function Home() {
         <Category/>
         <div className="home__wrapper">
         <Carosel/>
-        <ProductCard products={products}/>
+        <ProductCard products={products} heading={"All Products"}/>
         </div>
       </div>
     </>

@@ -47,4 +47,9 @@ span{
     .category span{
         font-size: 11px;
     }
+
+    .product__category{
+        margin-bottom: 0px  !important;
+        padding: 0px;
+    }
 }

@@ -12,3 +12,9 @@
     padding: 0px 10px 10px 10px;
     /* background-color: #e6e2e2cf; */
 }
+
+@media screen and (max-width:500px) {
+    .home__wrapper{
+        padding: 0px;
+    }
+}

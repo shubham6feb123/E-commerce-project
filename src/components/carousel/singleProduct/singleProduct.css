@@ -8,4 +8,23 @@
     border: 3px solid #2774F0 !important;
 }
 
+.carousel .control-dots .dot {
+    transition: opacity .25s ease-in;
+    opacity: .3;
+    filter: alpha(opacity=30);
+    box-shadow: 1px 1px 2px rgb(0 0 0 / 90%);
+    background: grey;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 8px;
+}
+
+@media screen and (max-width:500px) {
+    .ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap{
+        justify-content: center;
+    }
+}
 /* #2774F0 */

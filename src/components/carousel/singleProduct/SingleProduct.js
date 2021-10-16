@@ -8,8 +8,10 @@ function SingleProductCarousel({images}) {
     const imgClicked = (e)=>{
        window.open(e.target.firstElementChild.currentSrc, '_blank');
     }
+
+
     return (
-        <Carousel autoPlay={false} infiniteLoop={false} axis="horizontal" swipeable={true} showIndicators={false} showArrows={false} showStatus={false} showThumbs={true}>
+        <Carousel autoPlay={true} infiniteLoop={true} axis="horizontal" swipeable={true} showIndicators={false} showArrows={false} showStatus={false} showThumbs={true}>
          {
             images?.map(image=>(
                 <div key={image.public_id} onClick={imgClicked} name={image.secure_url}>

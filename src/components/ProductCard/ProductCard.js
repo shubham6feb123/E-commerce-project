@@ -8,7 +8,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Card1 from "../Card/Card1";
 
-function ProductCard({ products }) {
+function ProductCard({ products,heading }) {
 
     const responsive = {
         superLargeDesktop: {
@@ -39,7 +39,7 @@ function ProductCard({ products }) {
     <>
       <div className="product__card__container">
         <div className="product__card__label">
-          <h2>All Product</h2>
+          <h2>{heading}</h2>
         </div>
         <Carousel responsive={responsive}>
         {products?.map((product)=>(
