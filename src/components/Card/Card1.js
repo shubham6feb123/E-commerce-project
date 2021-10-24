@@ -22,7 +22,7 @@ function Card1({product}) {
   }
 
   const showPrice = ()=>(
-    <CurrencyFormat value={product?.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+    <CurrencyFormat value={product?.price} displayType={'text'} thousandSeparator={true} prefix={'₹'} />
   )
 
 

@@ -4,12 +4,14 @@ import { useLayoutEffect, useState } from "react";
 import "./singleProduct.css";
 
 //components
+import {Tag} from "antd";
 import { GetProduct } from "../../functions/product";
 import { useParams } from "react-router";
 import {
   ThunderboltFilled,
   ShoppingFilled,
   HeartFilled,
+  StarFilled
 } from "@ant-design/icons";
 import SingleProductCarousel from "../../components/carousel/singleProduct/SingleProduct";
 import WishListAlert from "../../components/Alert/wishListAlert/WishListAlert";
@@ -17,6 +19,8 @@ import CurrencyFormat from "react-currency-format";
 import ProductItmList from "../../components/ProductItemList/ProductItmList";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import {GetProductsByCount} from "../../functions/product";
+import { getAverageRating } from "../../functions/rating";
+
 
 function SingleProduct() {
   const { slug } = useParams();
@@ -24,11 +28,14 @@ function SingleProduct() {
   const [heartIcon, SetHeartIcon] = useState(true);
   const [clicked, SetClicked] = useState(false);
   const [products,setProducts] = useState([]);
+  const [avgRateing,setAvgRating] = useState(null)
   // console.log(slug);
 
   useLayoutEffect(() => {
     loadSingleProduct(slug);
     similarProduct();
+    loadAverageRating(slug);
+    // eslint-disable-next-line
   }, [slug]);
 
   const similarProduct = async()=>{
@@ -66,6 +73,16 @@ function SingleProduct() {
     // console.log("images--->",signleProduct.data);
   };
 
+  const loadAverageRating = async(slug)=>{
+   try {
+    const averageRating = await getAverageRating(slug)
+    setAvgRating({...averageRating.data})
+    // console.log("average rating of this product is ",averageRating)
+   } catch (error) {
+    //  console.log("failed to get average rating",error)
+   }
+  }
+
   return (
     <>
       <div className="single__product__container">
@@ -97,7 +114,10 @@ function SingleProduct() {
           </div>
 
           {/* rating section */}
-          <div className="single__product__rating"></div>
+          <div className="single__product__rating">
+          <Tag icon={<StarFilled />} color="#428E3C">{avgRateing?.avg}.0</Tag>
+          <span className="rating__text">{avgRateing?.allUsers} Ratings</span>
+          </div>
 
           {/* price section */}
           <div className="single__product__price">
@@ -110,7 +130,7 @@ function SingleProduct() {
           </div>
 
           {/* details section */}
-          <ProductItmList product={data} />
+          <ProductItmList product={data} id={data._id} slug={slug}/>
         </div>
 
       </div> 

@@ -3,9 +3,12 @@ import "./productItmList.css";
 
 //components
 import {Tabs, Tooltip } from 'antd';
+import Rating from '../StarRating/Rating';
+import { useSelector } from 'react-redux';
 
-function ProductItmList({product}) {
+function ProductItmList({product,id,slug}) {
     const [borderColor,setBorderColor] = useState(false);
+    const {user} = useSelector((state)=>({...state}));
     // console.log("product item",product);
     const selectColor = (e)=>{
     //   console.log(e,e.target.style)
@@ -67,8 +70,8 @@ function ProductItmList({product}) {
                     <Tabs.TabPane tab="Reviews" key="2">
                         {product.title}
                     </Tabs.TabPane>
-                    <Tabs.TabPane tab="Ratings" key="3">
-                        {product.title}
+                    <Tabs.TabPane tab="Rate Product" key="3">
+                       <Rating id={id} token={user?.token} slug={slug}/>
                     </Tabs.TabPane>
                 </Tabs>
             </div>
