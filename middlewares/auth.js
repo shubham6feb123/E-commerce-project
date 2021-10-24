@@ -9,7 +9,7 @@ exports.authCheck = async(req,res,next)=>{
        req.user = firebaseUser;
       next();
     } catch (error) {
-        console.log(err);
+        console.log("error from authcheck middleware",err);
         res.status(401).json({
             err:'invalid or expired token',
         })
@@ -18,13 +18,17 @@ exports.authCheck = async(req,res,next)=>{
 };
 
 exports.adminCheck = async(req,res,next)=>{
- const {email} = req.headers;
- const adminUser = await User.findOne({email:email});
- console.log('adminUser---->',adminUser);
-if(adminUser.role !== 'admin'){
-res.status(403).json({err:'Admin Resource.Access Denied'});
-}else{
-    next();
+try {
+    const {email} = req.headers;
+    const adminUser = await User.findOne({email:email});
+    console.log('adminUser---->',adminUser);
+   if(adminUser.role !== 'admin'){
+   res.status(403).json({err:'Admin Resource.Access Denied'});
+   }else{
+       next();
+   }
+} catch (error) {
+    
 }
 
 }
