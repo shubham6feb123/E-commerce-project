@@ -4,11 +4,13 @@ const slugify = require('slugify');
 
 const create = async(req,res)=>{
 try {
+
     const {name,parent} = req.body;
+    // console.log("sub categories credentials",name,parent)
 const category = await new subCategory({
-    name:name.name,
-    slug:slugify(name.name),
-  parent:parent.parent
+    name:name,
+    slug:slugify(name),
+  parent:parent
 }).save();
 
 res.json(category);
@@ -63,7 +65,7 @@ try {
 const getSubcategories = async(req,res)=>{
     try {
         const subcategories = await subCategory.find({parent:req.params._id})
-        console.log("all the subcategories with the parent category",subcategories);
+        // console.log("all the subcategories with the parent category",subcategories);
         res.status(200).json(subcategories);
     } catch (error) {
         console.log(error);

@@ -28,11 +28,11 @@ const productSchema = new mongoose.Schema({
     },
     category:{
         type:ObjectId,
-        ref:"Category"
+        ref:"CATEGORY"
     },
     subcategories:[{
         type:ObjectId,
-        ref:"subCategory"
+        ref:"SUBCATEGORY"
     }],
     quantity:{
         type:Number

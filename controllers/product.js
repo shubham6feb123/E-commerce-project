@@ -18,9 +18,9 @@ exports.ListAll = async (req, res) => {
   try {
     const products = await product
       .find({})
-      .limit(parseInt(req.params.count))
-      .populate("Category")
-      .populate("subCategory")
+      // .limit(parseInt(req.params.count))
+      .populate("category")
+      .populate("subcategories")
       .sort([["createdAt", "desc"]])
       .exec();
     res.status(200).json(products);
@@ -111,7 +111,7 @@ exports.GetProductRating = async (req, res) => {
 //get average rating
 exports.GetAverageRating = async (req, res) => {
   try {
-    console.log("slug from avg rating", req.params.slug);
+    // console.log("slug from avg rating", req.params.slug);
     const singleProduct = await product.findOne({ slug: req.params.slug });
     const avgRating = singleProduct.rating.reduce(
       (previousValue, currentValue) => previousValue + currentValue.star,
@@ -119,8 +119,152 @@ exports.GetAverageRating = async (req, res) => {
     );
     // console.log("average rating", avgRating);
     // console.log("no. users rated", singleProduct.rating.length);
-    res.status(200).json({ avg: avgRating / singleProduct.rating.length,allUsers:singleProduct.rating.length });
+    res.status(200).json({
+      avg: avgRating / singleProduct.rating.length,
+      allUsers: singleProduct.rating.length,
+    });
   } catch (error) {
     // console.log("err to get avg rating", error);
+  }
+};
+
+//HANDELING SEARCH QUERY
+const handleQuery = async (res, req, query) => {
+  try {
+    const products = await product
+      .find({ $text: { $search: query } })
+      .populate("category")
+      .populate("subcategories")
+      .populate("postedBy")
+      .exec();
+
+    res.json(products);
+  } catch (error) {
+    console.log(error.message);
+    res.status(403).json({ error: error });
+  }
+};
+
+//HANDELING PRICE QUERY
+const handlePrice = async (res, req, price) => {
+  try {
+    const products = await product
+      .find({ price: { $gte: price[0], $lte: price[1] } })
+      .populate("category")
+      .populate("subcategories")
+      .populate("postedBy")
+      .exec();
+    // console.log("products price",products)
+    res.status(200).json(products);
+  } catch (error) {
+    console.log(error.message);
+    res.status(403).json({ error: error });
+  }
+};
+
+//HANDELING CATEGORY QUERY
+const handleCategory = async (res, req, category) => {
+  try {
+    const products = await product
+      .find({ category })
+      .populate("category")
+      .populate("subcategories")
+      .populate("postedBy")
+      .exec();
+    // console.log("category search",products.data)
+    res.status(200).json(products);
+  } catch (error) {
+    console.log(error.message);
+    res.status(403).json({ error: error });
+  }
+};
+
+//HANDELING BRAND QUERY
+const handleBrand = async (res, req, brand) => {
+  // console.log(brand)
+  try {
+    const products = await product
+      .find({ brand })
+      .populate("category")
+      .populate("subcategories")
+      .populate("postedBy")
+      .exec();
+    // console.log("category search",products.data)
+    res.status(200).json(products);
+  } catch (error) {
+    console.log(error.message);
+    res.status(403).json({ error: error });
+  }
+};
+
+//HANDELING STARS QUERY
+const handleStar = (res, req, stars) => {
+  try {
+    product
+      .aggregate([
+        {
+          $project: {
+            document: "$$ROOT",
+            floorAverage: {
+              $floor: { $avg: "$rating.star" },
+            },
+          },
+        },
+        {
+          $match: { floorAverage: stars },
+        },
+      ])
+      .exec((err, aggregates) => {
+        if (err) {
+          console.log("AGGREGATES ERROR", err);
+        } else {
+          product
+            .find({ _id: aggregates })
+            .populate("category")
+            .populate("subcategories")
+            .populate("postedBy")
+            .exec((err,products)=>{
+               if(err){
+                res.status(403).json({ error: err });
+               }else{
+                res.status(200).json(products)
+               }
+            })
+          // res.status(200).json(aggregates)
+        }
+      });
+  } catch (error) {
+    console.log(error.message);
+    res.status(403).json({ error: error });
+  }
+};
+
+//SEARCH/FILTERS
+exports.SearchFilters = async (req, res) => {
+  const { query, price, category, brand, stars } = req.body;
+  // console.log("query",query);
+  if (query) {
+    // console.log("query", query);
+    await handleQuery(res, req, query);
+  }
+
+  if (price !== undefined) {
+    await handlePrice(res, req, price);
+    // console.log("price : ", price);
+  }
+
+  if (category) {
+    // console.log("category", category);
+    await handleCategory(res, req, category);
+  }
+
+  if (brand) {
+    // const lower = brand.toLowerCase();
+    await handleBrand(res, req, brand);
+  }
+
+  if (stars) {
+    // console.log("stars", stars);
+     handleStar(res, req, stars);
   }
 };

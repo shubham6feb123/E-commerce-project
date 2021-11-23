@@ -6,7 +6,7 @@ const { adminCheck, authCheck } = require("../middlewares/auth");
 
 
 //controller
-const {Create,ListAll,DeleteProduct,GetSingleProduct,ProductRating,GetProductRating,GetAverageRating} = require("../controllers/product");
+const {Create,ListAll,DeleteProduct,GetSingleProduct,ProductRating,GetProductRating,GetAverageRating,SearchFilters} = require("../controllers/product");
 
 router.post("/product",adminCheck,Create);
 router.get("/products/:count",ListAll);
@@ -21,5 +21,8 @@ router.post("/product/star/rated/:productId",authCheck,GetProductRating);
 
 //get average rating single product
 router.get("/product/star/average/:slug",GetAverageRating);
+
+//search
+router.post("/search/filters",SearchFilters);
 
 module.exports = router;
