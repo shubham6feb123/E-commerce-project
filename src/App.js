@@ -20,6 +20,10 @@ import Password from "./pages/user/Password";
 import AdminRoutes from "./components/routes/AdminRoutes";
 import Dashboard from "./pages/admin/Dashboard";
 import SingleProduct from "./pages/singleProductPage/SingleProduct";
+import Search from "./pages/search/Search";
+import SearchRoute from "./components/routes/SearchRoute";
+import Cart from "./components/Cart/Cart";
+import CheckOut from "./pages/checkOut/CheckOut";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -64,12 +68,16 @@ const App = () => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/product/:slug" component={SingleProduct} />
+          <Route exact path="/cart" component={Cart}/>
+          <SearchRoute path="/search">
+            <Search/>
+          </SearchRoute>
           <AdminRoutes  path="/admin">
             <Dashboard/>
           </AdminRoutes>
           <Route
             exact
-            path="/registercomplete"
+            path="/register/registercomplete/"
             component={CompleteRegistrationForm}
           />
           <Route exact path="/forgotpassword" component={ForgotPassword} />
@@ -79,6 +87,9 @@ const App = () => {
           <UserRoutes  exact path="/userpassword">
             <Password/>
           </UserRoutes>
+          <Route exact path="/checkout" component={CheckOut} />
+           
+        
           <Route exact component={NotFound} />
         </Switch>
       </Router>

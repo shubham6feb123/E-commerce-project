@@ -28,16 +28,16 @@ function AdminProductCard({product,handleRemove,loading}) {
       <Card
       loading={loading}
     hoverable
-    style={{ width: 240}}
+    style={{ width: 263}}
     cover={<Image alt="product" src={product.images[1].secure_url} height={180} />}
   >
-    <Meta title={product.title} description={<CurrencyFormat value={product.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />}/>
+    <Meta title={product.title} description={<CurrencyFormat value={product.price} displayType={'text'} thousandSeparator={true} prefix={'₹'} />}/>
     
     <div style={{marginTop:15,textAlign:"center"}}>
     <Space direction="vertical">
     <ButtonGroup>
       <Space size="small">
-        <Button size="middle" type="primary" icon={<EditFilled/>}>Update</Button>
+        <Button size="middle" type="primary" disabled icon={<EditFilled/>}>Update</Button>
         <Button id={product.slug} ref={buttonRef} size="middle" type="primary" icon={<DeleteFilled/>} onClick={handleDelete}>Delete</Button>
       </Space>
     </ButtonGroup>

@@ -1,0 +1,136 @@
+.checkout{
+    width: 100vw;
+    min-height: 89vh;
+    display: flex;
+    background-color: #F1F3F6;
+    gap: 8rem;
+    padding: 16px;
+}
+
+.checkout__details__container{
+    min-width: 52%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    height: fit-content;
+}
+
+.checkout__details__container>.checkout__delivery__address{
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.checkout__details__container>.checkout__delivery__address>p{
+    margin: 0px;
+    font-size: 16px;
+    border-bottom: 1px solid #e2e2e2;
+    color: #afadad;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: #ffffff;
+}
+
+.checkout__order__summary{
+    width: 38%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+/* coupon */
+.checkout__coupon__container{
+    background-color: #ffffff;
+    padding-bottom: 30px;
+}
+.apply__coupon__heading{
+    color: black;
+    font-size: 15px;
+    padding: 10px;
+    background: #ffffff;
+    position: relative;
+    cursor: pointer;
+    width: fit-content;
+    overflow: hidden;
+}
+.apply__coupon__heading::before{
+    content: '';
+    position: absolute;
+    height: 2px;
+    background-color: black;
+    bottom: 9px;
+    left: 10px;
+    width: 107px;
+    transform: translateX(0%);
+    /* transition: transform .5s ease-in; */
+
+}
+
+.apply__coupon__container{
+    display: none;
+}
+
+.apply__coupon__container>input{
+    width: 170px;
+    outline: none;
+    border: 1px solid black;
+    padding: 3px 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.apply__coupon__container>button{
+    outline: none;
+    border: none;
+    background: #000000ba;
+    color: white;
+    font-size: 15px;
+    height: 30px;
+    padding: 3px 15px;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+.apply__coupon__container>button:hover{
+    background: black;
+}
+
+@media screen and (max-width:1100px) {
+    .checkout{
+        /* flex-direction: column;
+        gap: 4px; */
+        display: block;
+    }
+
+    .checkout__order__summary{
+        position: static;
+        width: 100%;
+    }
+
+    .checkout>.proceed__to__checkout{
+       position: static;
+       background-color: #ffffff;
+       text-align: end;
+       width: 100%;
+       padding: 7px 9px;
+    }
+    
+    .checkout>.proceed__to__checkout>button{
+        color: #ffffff;
+        background-color: #F46326;
+        border-radius: 4px;
+        padding: 12px 2.5rem;
+    }
+}
+
+
+@media screen and (max-width:500px) {
+    .checkout{
+        flex-direction: column;
+        gap: 4px;
+        padding: 2px;
+        background-color: #ffffff;
+    }
+
+    .checkout__order__summary{
+        position: static;
+        width: 100%;
+    }
+}

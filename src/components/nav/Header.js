@@ -4,7 +4,6 @@ import "./header.css";
 //images
 import flipkartLogo from './flipkartLogo.png'
 import {
-  SearchOutlined,
   ShopOutlined,
   ShoppingCartOutlined,
   UserOutlined,
@@ -18,6 +17,7 @@ import {
 } from "@ant-design/icons";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
+import SearchBar from "../searchBar/SearchBar";
 
 
 function Header() {
@@ -50,10 +50,11 @@ function Header() {
             />
           </NavLink>
         </div>
-        <div className="header__searchbar">
+        {/* <div className="header__searchbar">
           <input type="search" name="" id="" placeholder="Search" />
           <SearchOutlined />
-        </div>
+        </div> */}
+        <SearchBar/>
         <div className="header__navigationOptions">
           <ShopOutlined title="shop" />
           <ShoppingCartOutlined title="cart" />

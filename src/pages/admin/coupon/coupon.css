@@ -1,0 +1,20 @@
+.coupon{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width:326px) {
+    .coupon .h1{
+        font-size: 1.8rem;
+    }
+}
+/* coupon card container */
+.coupon__card__container{
+    display: flex;
+    padding: 5px 10px;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+}

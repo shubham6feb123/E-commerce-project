@@ -12,6 +12,7 @@
 .single__product__carousel__container {
   background: #ffffff;
   height: fit-content;
+  max-width: 28em;
   min-width: 30em;
   /* max-width: 30em; */
   border: 1px solid #e2e2e2;
@@ -116,13 +117,13 @@
 }
 
 .similar__products {
-  padding: 0px 10px;
+  /* padding: 0px 10px; */
   background: #eff1f4;
 }
 
 @media screen and (max-width: 900px) {
   .single__product__container {
-    padding: 0px;
+    padding: 10px 0px 0px 0px;
   }
   .single__product__carousel__container {
     min-width: 23em;
@@ -166,7 +167,8 @@
 
 @media screen and (max-width: 500px) {
   .single__product__carousel__container {
-    width: 80%;
+    /* width: 80%; */
+    width: 100%;
   }
   .single__product__heading {
     margin: 10px 0px 5px 10px;

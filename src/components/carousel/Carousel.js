@@ -43,7 +43,7 @@ function Carosel() {
     <div style={{width:"100%",position:"relative"}}>
       <Carousel
         className="carousel"
-        // autoplay={true}
+        autoplay={true}
         style={{ position: "relative" }}
         ref={carouselRef}
        dots={false}

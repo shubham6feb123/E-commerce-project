@@ -2,7 +2,7 @@ const axios = require("axios");
 
 //create category using this api request
 exports.subcreate = async (email,subcategory,parentId)=>{
-    // console.log("email",email,"subcategory",subcategory,"parent",parentId)
+    // console.log("email subcreate func",email,"subcategory",subcategory,"parent",parentId)
     return await axios.post(`${process.env.REACT_APP_API}/subcategory`,{name:subcategory,parent:parentId},
     {
         headers:{

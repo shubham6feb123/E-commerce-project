@@ -20,8 +20,11 @@ import ProductItmList from "../../components/ProductItemList/ProductItmList";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import {GetProductsByCount} from "../../functions/product";
 import { getAverageRating } from "../../functions/rating";
+import lodash from "lodash";
+import { useDispatch } from "react-redux";
+import { message } from "antd";
 
-
+const numArray = [1,2,3,4,5];
 function SingleProduct() {
   const { slug } = useParams();
   const [data, setData] = useState({});
@@ -29,6 +32,11 @@ function SingleProduct() {
   const [clicked, SetClicked] = useState(false);
   const [products,setProducts] = useState([]);
   const [avgRateing,setAvgRating] = useState(null)
+
+  //redux
+  const dispatch = useDispatch();
+
+  // console.log("cart",cart)
   // console.log(slug);
 
   useLayoutEffect(() => {
@@ -70,12 +78,13 @@ function SingleProduct() {
   const loadSingleProduct = async (slug) => {
     const signleProduct = await GetProduct(slug);
     setData({ ...signleProduct.data });
-    // console.log("images--->",signleProduct.data);
+    console.log("images--->",signleProduct.data);
   };
 
   const loadAverageRating = async(slug)=>{
    try {
-    const averageRating = await getAverageRating(slug)
+    const averageRating = await getAverageRating(slug);
+    // console.log("avg rating",averageRating.data.avg)
     setAvgRating({...averageRating.data})
     // console.log("average rating of this product is ",averageRating)
    } catch (error) {
@@ -83,13 +92,48 @@ function SingleProduct() {
    }
   }
 
+
+  //adding item to cart
+  const addToCartHandle = (e)=>{
+//create cart array
+let cart = [];
+    if(typeof window !==undefined){
+      message.success({content: "Item added to your cart",
+      style: { position: "fixed", bottom: "10px", left: "25px",right:"20px" },})
+
+      if(window.localStorage.getItem("cart")){
+         cart = JSON.parse(window.localStorage.getItem("cart"))
+         window.localStorage.removeItem("cart");
+      }
+
+     
+
+     cart.push({...data,count:1});
+
+     let unique = lodash.uniqWith(cart,lodash.isEqual)
+    //  console.log("unique--->",unique)
+
+     window.localStorage.setItem("cart",JSON.stringify(unique))
+
+
+     //add to redux state
+     dispatch({
+       type:"ADD_TO_CART",
+       payload: unique,
+     })
+
+    }
+
+  }
+
+
   return (
     <>
       <div className="single__product__container">
         <div className="single__product__carousel__container">
-          <SingleProductCarousel images={data.images} />
+          <SingleProductCarousel images={data?.images} />
           <div className="button__group">
-            <button className="cart">
+            <button className="cart" onClick={addToCartHandle}>
               <ShoppingFilled /> ADD TO CART
             </button>
             <button className="bolt">
@@ -115,7 +159,7 @@ function SingleProduct() {
 
           {/* rating section */}
           <div className="single__product__rating">
-          <Tag icon={<StarFilled />} color="#428E3C">{avgRateing?.avg}.0</Tag>
+          <Tag color="#428E3C">{avgRateing?.avg!=null?numArray.includes(avgRateing?.avg)?Number(avgRateing?.avg).toPrecision(2):avgRateing?.avg :"0.0"} {<StarFilled />}</Tag>
           <span className="rating__text">{avgRateing?.allUsers} Ratings</span>
           </div>
 

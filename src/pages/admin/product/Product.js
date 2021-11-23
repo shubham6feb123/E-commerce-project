@@ -49,7 +49,7 @@ useLayoutEffect(()=>{
 useLayoutEffect(()=>{
   subCategories(values?.category).then(response=>{
     setSubcategories([...response.data]);
-    console.log("subcategories value",response.data)
+    // console.log("subcategories value",response.data)
   }).catch((error)=>console.log("subcategories error",error))
 
   // eslint-disable-next-line
@@ -100,7 +100,7 @@ const buttonClick = ()=>{
   
   const{title,description,price,color,brand,images,quantity,subcategories,category,shipping} = values;
   if(title&&description&&price&&color.length>0&&brand&&images.length>0&&quantity&&subcategories.length>0&&category&&shipping){
-    console.log("all values",values);
+    // console.log("all values",values);
     createProduct(values)
   }else{
       console.log("fill all the fileds")

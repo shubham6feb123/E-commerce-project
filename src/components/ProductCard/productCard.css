@@ -18,6 +18,13 @@
   margin: 0px;
 }
 
+.product__card__container .carousel ul{
+  gap: 15px;
+}
+
+.product__card__container .carousel ul li{
+  width: fit-content !important;
+}
 
 /* media queries */
 @media screen and (max-width: 500px) {

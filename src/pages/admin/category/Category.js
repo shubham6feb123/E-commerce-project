@@ -60,6 +60,7 @@ function Category() {
 
   //creating subcategory function
   const createCategory = (email, category) => {
+    // console.log("category-->",email,category)
     create(email, category)
       .then((response) => {
         setLoading(false);
@@ -82,7 +83,7 @@ setKeywords(value)
  
 
   const deleteSubcategory = (slug,email)=>{
-console.log(`We are deleting ${slug} ${email}`);
+// console.log(`We are deleting ${slug} ${email}`);
   remove(slug,email).then(()=>{
   toast.success("category deleted",{position:"bottom-right"});
   setRender(!render);

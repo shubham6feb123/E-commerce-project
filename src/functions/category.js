@@ -3,7 +3,7 @@ const axios = require("axios");
 //create category using this api request
 exports.create = async (email,category)=>{
 
-    return await axios.post(`${process.env.REACT_APP_API}/category`,{category:category},
+    return await axios.post(`${process.env.REACT_APP_API}/category`,{name:category},
     {
         headers:{
             email:email,

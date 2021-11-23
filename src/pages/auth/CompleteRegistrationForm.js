@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { auth } from "../../firebase";
-import "./register.css";
+import "./completeregister.css";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router";
 
+//components
+import { Form, Input, Button,Spin } from 'antd';
+import { UserOutlined, LockOutlined,LoadingOutlined } from '@ant-design/icons';
+import image from '../../images/logo.png';
+// import { useSelector } from "react-redux";
 
+
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 function CompleteRegistrationForm() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loading,setLoading] = useState(false);
+  // const {user} = useSelector((state)=>({...state}))
   const history = useHistory();
 
   useEffect(() => {
@@ -15,10 +23,11 @@ function CompleteRegistrationForm() {
     setEmail(window.localStorage.getItem("EmailForRegistration"));
   }, []);
 
+// console.log("email",email)
 
-
-  const submit = async (e) => {
-
+  const onFinish = async (value) => {
+    const {password} = value;
+    console.log(value)
     //validation for password
     if (!password) {
       toast.error(`Password is required`, { position: "bottom-right" });
@@ -30,6 +39,7 @@ function CompleteRegistrationForm() {
       return;
     } else
       try {
+        setLoading(true)
         const result = await auth.signInWithEmailLink(
           email,
           window.location.href
@@ -52,6 +62,7 @@ function CompleteRegistrationForm() {
           );
         }
       } catch (error) {
+        setLoading(false)
         console.log(error);
         toast.error(
           `Verification link sent to email has been expired or not working. Try to register again `,
@@ -63,46 +74,61 @@ function CompleteRegistrationForm() {
   };
   return (
     <>
-      <div className="register">
-        <div className="register__container">
-          <div className="register__logo" title="TSS">
-            <img src="./images/flipkartLogo-removebg-preview.png" alt="TSS" />
-          </div>
-          <div className="register__form">
-            <div className="register__form__field">
-              <h2>
-                <img src="./images/avatar.png" alt="Register to TSS" />
-              </h2>
-              <div className="register__form__field__label">
-                <label htmlFor="email">E-mail</label>
-                <input
-                  type="email"
-                  name="email"
-                  autoFocus
-                  value={email}
-                  placeholder="abcxyz@gmail.com"
-                  disabled
-                />
-                <label htmlFor="email">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  autoFocus
-                  value={password}
-                  placeholder="password"
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="register__form__field__button">
-                <button type="submit" onClick={submit}>
-                  Login
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="login">
+      <div className="logo__wrapper">
+        <img src={image} alt="logo"/>
+      </div>
+      <Form
+      name="normal_login"
+      className="login-form"
+      initialValues={{
+        remember: true,
+      }}
+      onFinish={onFinish}
+      style={{textAlign:"center"}}
+      fields={[
+        {
+          name: ["Email"],
+          value: email,
+        },
+      ]}
+    >
+      <Form.Item
+        name="Email"
+        // initialValue={email}
+        rules={[
+          {
+            required: false,
+            message: 'Please enter your Email',
+          },
+        ]}
+        
+      >
+        <Input disabled prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
+      </Form.Item>
+      <Form.Item
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: 'Please enter your Password',
+          },
+        ]}
+      >
+        <Input
+          prefix={<LockOutlined className="site-form-item-icon" />}
+          type="password"
+          placeholder="Password"
+        />
+      </Form.Item>
+
+      <Form.Item>
+        <Button size="large" type="primary" htmlType="submit" className="login-form-button" style={{width:"100%"}}>
+        {loading?(<Spin indicator={antIcon} />) : 'Complete Registration'}
+        </Button>
+        {/* Or <NavLink to="/register">register now!</NavLink> */}
+      </Form.Item>
+    </Form>
       </div>
     </>
   );

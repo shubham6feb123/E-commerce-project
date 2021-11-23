@@ -59,6 +59,7 @@ function SubCategory() {
   },[render])
 
   const onFinish = (value) => {
+    // console.log("sub categories",value)
     if (value) {
       setLoading(true);
 
@@ -90,6 +91,7 @@ function SubCategory() {
       .catch((error) => {});
   };
 
+  console.log("subcategories",subcategories)
 
   const onSearch = (value)=>{
 setKeywords(value)

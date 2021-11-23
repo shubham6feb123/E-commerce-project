@@ -41,9 +41,9 @@ function ProductCard({ products,heading }) {
         <div className="product__card__label">
           <h2>{heading}</h2>
         </div>
-        <Carousel responsive={responsive}>
+        <Carousel className="carousel" responsive={responsive}>
         {products?.map((product)=>(
-          <Card1 key={product._id} product={product}/>
+          <Card1 rate={product.rating} rating={true} key={product._id} product={product}/>
         ))}
         </Carousel>
       </div>

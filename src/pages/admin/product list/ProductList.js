@@ -51,7 +51,7 @@ function ProductList() {
         <div className="product__container">
           {
           products?.map((product)=>(
-            <AdminProductCard key={product._id} product={product} handleRemove={handleRemove} loading={loading}/>
+            <AdminProductCard  key={product._id} product={product} handleRemove={handleRemove} loading={loading}/>
           ))
           }
         </div>

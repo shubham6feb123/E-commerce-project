@@ -11,7 +11,7 @@ function SingleProductCarousel({images}) {
 
 
     return (
-        <Carousel autoPlay={true} infiniteLoop={true} axis="horizontal" swipeable={true} showIndicators={false} showArrows={false} showStatus={false} showThumbs={true}>
+        <Carousel autoPlay={false} infiniteLoop={true} axis="horizontal" swipeable={true} showIndicators={false} showArrows={false} showStatus={false} showThumbs={true}>
          {
             images?.map(image=>(
                 <div key={image.public_id} onClick={imgClicked} name={image.secure_url}>

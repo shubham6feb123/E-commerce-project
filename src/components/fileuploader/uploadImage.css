@@ -1,19 +1,48 @@
-  .anticon-delete>svg{
-    color: red;
+.anticon-delete > svg {
+  color: red;
 }
 
-.upload__Button{
+.upload__Button {
   width: 8rem;
   margin-top: 1.5rem;
 }
 
 /* tile uploaded pictures */
 .upload-list-inline .ant-upload-list-item {
-    float: left;
-    width: 200px;
-    margin-right: 8px;
-  }
+  float: left;
+  width: 200px;
+  margin-right: 8px;
+}
+
+.upload-list-inline [class*="-upload-list-rtl"] .ant-upload-list-item {
+  float: right;
+}
+
+.upload__container .show__uploaded__images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.upload__container .show__uploaded__images div {
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+}
+
+.upload__container .show__uploaded__images div .image__mask{
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
   
-  .upload-list-inline [class*='-upload-list-rtl'] .ant-upload-list-item {
-    float: right;
-  }
+
+}
+
+
+.upload__container .show__uploaded__images div img {
+  width: 100px;
+  height: 82px;
+}
