@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import CheckOutForm from "../../components/form/CheckOutForm";
 import getCart from "../../functions/getUserCart";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import {useHistory} from "react-router-dom";
 import CurrencyFormatter from "react-currency-format";
+import {Spin} from "antd";
+import {LoadingOutlined} from "@ant-design/icons";
 
 //css
 import "./checkout.css";
 import { currentUser } from "../../functions/auth";
 import { verifyCoupon } from "../../functions/coupon";
+import { verifyUser } from "../../functions/payment";
+import Loading from "../../components/Loading/Loading";
 
+const antIcon = <LoadingOutlined/>
 function CheckOut() {
   const [details, setDetails] = useState({
     name: "",
@@ -23,21 +29,31 @@ function CheckOut() {
   const [couponCode, setCouponCode] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [verifiedCoupon,setVerifiedCoupon] = useState({});
+  const [orderLoading,setOrderLoading] = useState(false);
+  const [totalAfterDiscount,setTotalAfterDiscount] = useState(0);
+  // const [verifiedCoupon,setVerifiedCoupon] = useState({});
   const { user } = useSelector((state) => ({ ...state }));
   const [storeCart, setStoreCart] = useState(null);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   useEffect(() => {
     if (user) loadUser();
     loadCart();
     // eslint-disable-next-line
-  }, [user]);
+  }, [user,totalAfterDiscount]);
 
   const loadCart = async () => {
     try {
       const cart = await getCart(user?.email);
+      if(cart.data==="Your cart is empty"){
+        history.push("/")
+      }else{
       setStoreCart(cart.data);
       // console.log("cart loaded", cart);
+    }
     } catch (e) {
+      history.push("/")
       // console.log("failed to get cart", e);
     }
   };
@@ -64,22 +80,40 @@ function CheckOut() {
       if (couponCode&&user?.token) {
         setLoading(true);
         const verified = await verifyCoupon(couponCode, user?.token);
-        setVerifiedCoupon(verified.data[0])
-        console.log("verified",verified)
-        if(verified.data.length>0){
-          setLoading(false)
-        }
+         setTotalAfterDiscount(Number(verified?.data?.totalAfterDiscount));
+        // console.log("verified",verified)
+        setLoading(false)
         setError("Hurrey coupon applied !");
+        dispatch({type:"COUPON_APPLIED",payload:true})
       }
     } catch (error) {
       setError("code invalid!");
       setLoading(false);
       e.target.previousSibling.style.color = "red";
+      dispatch({type:"COUPON_APPLIED",payload:false})
     }
   };
 
+  //place order function
+  const placeOrder = ()=>{
+    setOrderLoading(true)
+   if(details.address&&details.city&&details.mobileNumber&&details.name&&details.pincode&&details.state&&details.zip){
+     verify();  
+   }
+  }
 
-  return (
+  const verify = async()=>{
+   try {
+     const verified = await verifyUser(user?._id)
+     console.log("verified",verified)
+    verified?.data?.status&& history.push(`/payment/${user?._id}`);
+    setOrderLoading(false)
+   } catch (error) {
+     setOrderLoading(false)
+   }
+  }
+
+  return !storeCart?.products?(<Loading/>):(
     <div className="checkout">
       <div className="checkout__details__container">
         <div className="checkout__delivery__address">
@@ -94,7 +128,6 @@ function CheckOut() {
           <div
             className="apply__coupon__heading"
             onClick={(e) => {
-              // console.log("e", e);
               setShowCoupon(!showCoupon);
               e.target.nextSibling.style.display = "block";
             }}
@@ -164,8 +197,8 @@ function CheckOut() {
             <div>
               {
                 <CurrencyFormatter
-                  value={storeCart?.cartTotal}
-                  displayType={"text"}
+                value={storeCart?.totalAfterDiscount?storeCart.totalAfterDiscount:storeCart?.cartTotal}
+                displayType={"text"}
                   thousandSeparator={true}
                   prefix="₹"
                 />
@@ -176,7 +209,7 @@ function CheckOut() {
       </div>
       {
         <div className="proceed__to__checkout">
-          <button>Place order</button>
+          <button disabled={orderLoading?true:false} onClick={placeOrder}>{orderLoading?(<Spin size="large" indicator={antIcon} tip="Placeing order" />):"Place order"}</button>
         </div>
       }
     </div>

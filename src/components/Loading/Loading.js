@@ -14,3 +14,4 @@ function Loading({text}) {
 }
 
 export default Loading
+

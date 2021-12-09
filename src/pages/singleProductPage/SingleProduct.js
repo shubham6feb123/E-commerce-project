@@ -23,6 +23,7 @@ import { getAverageRating } from "../../functions/rating";
 import lodash from "lodash";
 import { useDispatch } from "react-redux";
 import { message } from "antd";
+import Loading from "../../components/Loading/Loading";
 
 const numArray = [1,2,3,4,5];
 function SingleProduct() {
@@ -127,7 +128,7 @@ let cart = [];
   }
 
 
-  return (
+  return !data?(<Loading/>):(
     <>
       <div className="single__product__container">
         <div className="single__product__carousel__container">

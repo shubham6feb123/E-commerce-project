@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import LoadingToRedirect from "../routes/LoadingToRedirect";
+// import LoadingToRedirect from "../routes/LoadingToRedirect";
 import { currentAdmin } from "../../functions/auth";
+import Loading from "../Loading/Loading";
 
 function AdminRoutes({ children, ...rest }) {
   const { user } = useSelector((state) => ({ ...state }));
@@ -24,7 +25,7 @@ function AdminRoutes({ children, ...rest }) {
   return OK ? (
     <Route {...rest} render={() => children} />
   ) : (
-    <LoadingToRedirect />
+    <Loading />
   );
 }
 

@@ -92,6 +92,8 @@
     background: black;
 }
 
+
+
 @media screen and (max-width:1100px) {
     .checkout{
         /* flex-direction: column;

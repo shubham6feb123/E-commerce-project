@@ -24,6 +24,9 @@ import Search from "./pages/search/Search";
 import SearchRoute from "./components/routes/SearchRoute";
 import Cart from "./components/Cart/Cart";
 import CheckOut from "./pages/checkOut/CheckOut";
+import Payment from "./pages/payment/Payment";
+import PaymentSuccessfull from "./pages/payment/PaymentSuccessfull";
+import PaymentFailed from "./pages/payment/PaymentFailed";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -81,15 +84,24 @@ const App = () => {
             component={CompleteRegistrationForm}
           />
           <Route exact path="/forgotpassword" component={ForgotPassword} />
-          <UserRoutes exact path="/userhistory">
+          <UserRoutes exact path="/user/orders">
             <History/>
           </UserRoutes>
           <UserRoutes  exact path="/userpassword">
             <Password/>
           </UserRoutes>
-          <Route exact path="/checkout" component={CheckOut} />
-           
-        
+          <UserRoutes exact path="/checkout/" >
+            <CheckOut/>
+          </UserRoutes>
+           <UserRoutes exact path="/payment/:user" >
+             <Payment/>
+           </UserRoutes>
+           <UserRoutes exact path="/payment/successful/:user">
+             <PaymentSuccessfull/>
+           </UserRoutes>
+           <UserRoutes exact path="/payment/failed/:user">
+             <PaymentFailed/>
+           </UserRoutes>
           <Route exact component={NotFound} />
         </Switch>
       </Router>

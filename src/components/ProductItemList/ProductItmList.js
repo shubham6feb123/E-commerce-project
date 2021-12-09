@@ -48,7 +48,7 @@ function ProductItmList({product,id,slug}) {
             <div className="product__item__list">
                <p>Available</p> 
                <div>
-              <p style={{fontWeight:600,color:"black",width:'65px'}}>{product?.quantity}</p >
+              <p style={product?.quantity===0?{fontWeight:600,color:"black",width:"107px"}:{fontWeight:600,color:"black",width:"65px"}}>{product?.quantity<=0?"Out of Stock":product?.quantity}</p >
                 </div>
             </div>
 

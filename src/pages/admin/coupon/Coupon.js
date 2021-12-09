@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Create, Remove, List } from "../../../functions/coupon";
+import { Create, List } from "../../../functions/coupon";
 
 //css
 import "./coupon.css";

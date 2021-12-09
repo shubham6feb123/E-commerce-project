@@ -6,3 +6,8 @@ body{
     color: #ffffff;
     background: #DF4933;
 }
+
+button:focus {
+    outline: none !important;
+    outline: none !important;
+}

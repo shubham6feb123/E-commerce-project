@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import userCart from "../../functions/userCart";
 import {Spin} from "antd";
 import {LoadingOutlined} from "@ant-design/icons";
+import Loading from "../Loading/Loading";
 
 const antIcon = <LoadingOutlined/>
 
@@ -37,14 +38,18 @@ function Cart() {
    console.log("error in cart",e)
   }
   };
-  return (
+  return user?.token?(
     <div className="cart__container">
       {cart.length <= 0 ? <CartEmpty /> : <CartFill cart={cartItem} />}
-     { cart?.length>0&&(<div className="proceed__to__checkout">
-        <button disabled={loading?true:false} onClick={proceedToCheckOut}>{loading?(<Spin size="large" indicator={antIcon} tip="Proceeding to checkout" />):"Proceed to checkout"}</button>
-      </div>)}
+     { cart?.length>0&&(
+      <div style={{display:"flex",justifyContent:"flex-end",marginRight:"4px",padding:"0px 2px 8px 0px"}}>
+     <div className="proceed__to__checkout">
+         <button disabled={loading?true:false} onClick={proceedToCheckOut}>{loading?(<Spin size="large" indicator={antIcon} tip="Proceeding to checkout" />):"Proceed to checkout"}</button>
+     </div>
+     </div>
+      )}
     </div>
-  );
+  ):(<Loading/>);
 }
 
 export default Cart;

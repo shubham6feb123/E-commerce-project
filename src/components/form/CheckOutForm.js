@@ -1,5 +1,7 @@
 import React from "react";
 import deliveryDetails from "../../functions/deliveryDetails";
+import {message} from "antd";
+
 
 function CheckOutForm({details,setDetails,authtoken}) {
   const indianState = [
@@ -149,6 +151,7 @@ function CheckOutForm({details,setDetails,authtoken}) {
     },
   ];
 
+
   const handleDetails = (e)=>{
       // console.log("handleDetails",e.target.value,"<-------",e.target.name)
       setDetails({...details,[e.target.name]:e.target.value})
@@ -159,12 +162,21 @@ function CheckOutForm({details,setDetails,authtoken}) {
   //  console.log("details------------->",details)
    const detail = await deliveryDetails(details,authtoken)
    console.log("save details",detail);
+   message.success({
+    content: "Delivery address saved!",
+    style: {
+      position: "fixed",
+      bottom: "10px",
+      left: "25px",
+      right: "20px",
+    },
+  })
   }catch(e){
      console.log("failed to save details",e)
    }
   }
   return (
-    <form style={{background:"#ffffff",paddingBottom:"12px"}} className="px-2" onSubmit={submitDetails} >
+    <form style={{background:"#ffffff",paddingBottom:"12px",width:"100%"}} className="px-2" onSubmit={submitDetails} >
       <div className="form-row">
         <div className="form-group col-md-6 py-2">
           <label htmlFor="inputName">Name</label>

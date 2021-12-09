@@ -9,7 +9,7 @@ import { message } from "antd";
 function CouponCard({name,discount,expiry,couponId,email,loadCoupon}) {
     const deleteCoupon = async()=>{
         //    console.log("coupon deleted",couponId)
-           const deleted = await Remove(couponId,email);
+            await Remove(couponId,email);
         //    console.log("coupon deleted",deleted)
            message.error({
             content: `${name} coupon deleted!`,
