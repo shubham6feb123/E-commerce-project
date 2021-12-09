@@ -6,11 +6,14 @@ const router = express.Router();
 const { adminCheck, authCheck } = require("../middlewares/auth");
 
 //controllers
-const {userCart,getUserCart}  = require("../controllers/userCart");
+const {userCart,getUserCart,deleteUserCart}  = require("../controllers/userCart");
 
 router.post("/user/cart",authCheck,userCart);
 
 router.get("/user/cart/:email",getUserCart);
+
+//deleting cart
+router.delete("/user/cart/delete/:Id",deleteUserCart)
 
 
 module.exports = router;

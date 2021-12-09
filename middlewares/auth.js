@@ -6,11 +6,12 @@ exports.authCheck = async(req,res,next)=>{
         // console.log('headers---->',req.headers); //token
         const token = req.headers.authtoken;
        const firebaseUser = await admin.auth().verifyIdToken(token);
-    //    console.log('firebaseUser',firebaseUser);
+       console.log('firebaseUser',firebaseUser);
 
        req.user = firebaseUser;
       next();
-    } catch (error) {
+    } 
+    catch (error) {
         console.log("error from authcheck middleware",err);
         res.status(401).json({
             err:'invalid or expired token',
@@ -30,7 +31,7 @@ try {
        next();
    }
 } catch (error) {
-    
+    console.log("error in adminCheck",error)
 }
 
 }

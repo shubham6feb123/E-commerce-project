@@ -38,13 +38,17 @@ exports.list = async (req,res) => {
 
 exports.verifyCoupon = async(req,res)=>{
 try{
-  const coupon = await Coupon.find({name:req.body.verify}); 
-  const user = await User.find({email:req.user.email});
- if(coupon.length>0){
-   let {products,cartTotal} = await Cart.findOne({orderdBy:user._id}).populate("products.product","_id title price").exec();
-   console.log("products",products,"cartTotal",cartTotal)
-   console.log("coupon",coupon);
-   res.json(coupon)
+  const coupon = await Coupon.findOne({name:req.body.verify});
+  // console.log("coupon",coupon); 
+ if(coupon){
+   const user = await User.findOne({email:req.user.email});
+   let {products,cartTotal,orderdBy} = await Cart.findOne({orderdBy:user._id}).populate("products.product","_id title price").exec();
+  //  console.log("products",products,"cartTotal",cartTotal);
+   let totalAfterDiscount = (cartTotal-(cartTotal*coupon.discount)/100).toFixed(2);
+  //  console.log("totalAfterDiscount",totalAfterDiscount)
+  //  console.log("coupon",coupon);
+  await Cart.findOneAndUpdate({orderdBy:user._id},{totalAfterDiscount:totalAfterDiscount},{new:true});
+   res.json({totalAfterDiscount:totalAfterDiscount,coupon:coupon})
  }else{
    throw "code invalid!";
  }

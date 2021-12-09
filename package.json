@@ -21,6 +21,7 @@
     "mongoose": "^5.12.13",
     "nodemon": "^2.0.12",
     "react-image-file-resizer": "^0.4.7",
-    "slugify": "^1.5.3"
+    "slugify": "^1.5.3",
+    "stripe": "^8.191.0"
   }
 }
