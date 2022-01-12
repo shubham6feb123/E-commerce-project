@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import "./history.css";
 
 //components
-import { SearchOutlined, FilePdfFilled } from "@ant-design/icons";
+import {FilePdfFilled } from "@ant-design/icons";
 import CurrencyFormatter from "react-currency-format";
 import { useSelector } from "react-redux";
 import { getUserOrders } from "../../functions/userOrders";
@@ -26,10 +26,12 @@ import {
   DataTableCell,
 } from "@david.kucsai/react-pdf-table";
 import Logo from "../../components/nav/flipkartLogo.png";
+import { useHistory } from "react-router-dom";
 
 function History() {
   const [getOrders, setGetOrders] = useState(null);
   const { user } = useSelector((state) => ({ ...state }));
+  const history = useHistory();
   useEffect(() => {
     if (user) getAllOrders(user?.token);
   }, [user]);
@@ -41,26 +43,12 @@ function History() {
       setGetOrders(orders.data);
     } catch (error) {
       setGetOrders(null);
-
+       history.push("/")
     }
   };
   return getOrders ? (
     <div className="orders">
       <div className="orders__container">
-        <div className="search__bar__container">
-          <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search your orders here"
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-            />
-            <button type="button" className="search__orders__button">
-              {<SearchOutlined />} search Orders
-            </button>
-          </div>
-        </div>
         {/* //orders card */}
         {getOrders?.map((product) => (
           <>
@@ -130,7 +118,7 @@ const OrdersCard = ({ status, color, price, title, image, count }) => {
             />
           </div>
           <div className="status__section">
-            <span></span>
+            <span style={status==="Cancelled"?{backgroundColor:"red"}:{backgroundColor:"#4EA642"}}></span>
             <span>{status}</span>
           </div>
         </div>

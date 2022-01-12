@@ -21,12 +21,14 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import {GetProductsByCount} from "../../functions/product";
 import { getAverageRating } from "../../functions/rating";
 import lodash from "lodash";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import Loading from "../../components/Loading/Loading";
+import { addToWishList } from "../../functions/wishList";
 
 const numArray = [1,2,3,4,5];
 function SingleProduct() {
+  const {user}  = useSelector((state)=>({...state}));
   const { slug } = useParams();
   const [data, setData] = useState({});
   const [heartIcon, SetHeartIcon] = useState(true);
@@ -53,6 +55,7 @@ function SingleProduct() {
   }
   const heartIconClicked = () => {
     alert();
+    putToWishList();
     SetHeartIcon(!heartIcon);
     SetClicked(true);
     setTimeout(() => {
@@ -79,7 +82,7 @@ function SingleProduct() {
   const loadSingleProduct = async (slug) => {
     const signleProduct = await GetProduct(slug);
     setData({ ...signleProduct.data });
-    console.log("images--->",signleProduct.data);
+    // console.log("singleProduct--->",signleProduct.data);
   };
 
   const loadAverageRating = async(slug)=>{
@@ -126,7 +129,14 @@ let cart = [];
     }
 
   }
-
+  const putToWishList = async () => {
+    try {
+      const added = await addToWishList(data?._id,user?.token);
+      // console.log("added to wishlist", added);
+    } catch (error) {
+      // console.log("error wishlist", error);
+    }
+  };
 
   return !data?(<Loading/>):(
     <>
@@ -175,7 +185,7 @@ let cart = [];
           </div>
 
           {/* details section */}
-          <ProductItmList product={data} id={data._id} slug={slug}/>
+          <ProductItmList product={data} id={data._id} slug={slug} review={data.review}/>
         </div>
 
       </div> 

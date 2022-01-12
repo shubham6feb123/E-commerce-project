@@ -13,9 +13,10 @@ import NotFound from "./pages/pageNotFound/NotFound";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import {currentUser} from "./functions/auth";
-import History from './pages/user/History';
-import UserRoutes from './components/routes/UserRoutes';
+import { currentUser } from "./functions/auth";
+import History from "./pages/user/History";
+import WishList from "./pages/user/WishList";
+import UserRoutes from "./components/routes/UserRoutes";
 import Password from "./pages/user/Password";
 import AdminRoutes from "./components/routes/AdminRoutes";
 import Dashboard from "./pages/admin/Dashboard";
@@ -27,6 +28,8 @@ import CheckOut from "./pages/checkOut/CheckOut";
 import Payment from "./pages/payment/Payment";
 import PaymentSuccessfull from "./pages/payment/PaymentSuccessfull";
 import PaymentFailed from "./pages/payment/PaymentFailed";
+import NotLogin from "./components/routes/NotLogin";
+import Support from "./pages/user/Support";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -38,22 +41,21 @@ const App = () => {
         const idTokenResult = await user.getIdTokenResult();
         // console.log("user", user, "idtokenresult", idTokenResult);
         const currenUser = await currentUser(user.email);
-        console.log("current user from app ", currenUser);
+        // console.log("current user from app ", currenUser);
 
         dispatch({
           type: "LOGGED_IN_USER",
           payload: {
             email: user.email,
-            name:currenUser.data.name,
-            role:currenUser.data.role,
-            _id:currenUser.data._id,
+            name: currenUser.data.name,
+            role: currenUser.data.role,
+            _id: currenUser.data._id,
             token: idTokenResult.token,
           },
         });
       }
     });
 
-    
     //cleanup
     return () => {
       unsubscribe();
@@ -68,40 +70,49 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Home} />
           {/* <Route exact path="/shop" component={Shop} /> */}
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
+          <NotLogin exact path="/login">
+            <Login />
+          </NotLogin>
+          <NotLogin exact path="/register">
+            <Register />
+          </NotLogin>
           <Route exact path="/product/:slug" component={SingleProduct} />
-          <Route exact path="/cart" component={Cart}/>
+          {/* <Route exact path="/cart" component={Cart}/> */}
+          <UserRoutes exact path="/cart">
+            <Cart />
+          </UserRoutes>
           <SearchRoute path="/search">
-            <Search/>
+            <Search />
           </SearchRoute>
-          <AdminRoutes  path="/admin">
-            <Dashboard/>
+          <Route exact path="/support" component={Support}/>
+          <AdminRoutes path="/admin">
+            <Dashboard />
           </AdminRoutes>
-          <Route
-            exact
-            path="/register/registercomplete/"
-            component={CompleteRegistrationForm}
-          />
+          <NotLogin exact path="/register/registercomplete/">
+            <CompleteRegistrationForm />
+          </NotLogin>
           <Route exact path="/forgotpassword" component={ForgotPassword} />
           <UserRoutes exact path="/user/orders">
-            <History/>
+            <History />
           </UserRoutes>
-          <UserRoutes  exact path="/userpassword">
-            <Password/>
+          <UserRoutes exact path="/userpassword">
+            <Password />
           </UserRoutes>
-          <UserRoutes exact path="/checkout/" >
-            <CheckOut/>
+          <UserRoutes exact path="/checkout/">
+            <CheckOut />
           </UserRoutes>
-           <UserRoutes exact path="/payment/:user" >
-             <Payment/>
-           </UserRoutes>
-           <UserRoutes exact path="/payment/successful/:user">
-             <PaymentSuccessfull/>
-           </UserRoutes>
-           <UserRoutes exact path="/payment/failed/:user">
-             <PaymentFailed/>
-           </UserRoutes>
+          <UserRoutes exact path="/user/wishlist">
+            <WishList />
+          </UserRoutes>
+          <UserRoutes exact path="/payment/:user">
+            <Payment />
+          </UserRoutes>
+          <UserRoutes exact path="/payment/successful/:user">
+            <PaymentSuccessfull />
+          </UserRoutes>
+          <UserRoutes exact path="/payment/failed/:user">
+            <PaymentFailed />
+          </UserRoutes>
           <Route exact component={NotFound} />
         </Switch>
       </Router>

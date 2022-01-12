@@ -12,7 +12,7 @@ const text = <span>Admin Options</span>;
 
 function AdminNav({path}) {
     const[show,setShow] = useState({ visible: false, placement: 'left' });
-    console.log("path from adminNav",path)
+    // console.log("path from adminNav",path)
 
     //Drawer function to show Drawer
    const  showDrawer = () => {

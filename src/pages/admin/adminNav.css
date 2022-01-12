@@ -6,7 +6,7 @@
     left: 0;
     right: 0;
     top: 69px;
-    z-index: 13;
+    z-index: 11;
     height: 60px;
     display: flex;
     justify-content: center;
@@ -70,7 +70,7 @@ justify-content: space-between;
     .adminnav__links__wrapper__mobile>.anticon-more{
   margin-left: 10px;
 color: black;
-background: #9494ca;
+background: #2972eae0;
 padding: 12px;
 border-radius: 50%;
     }

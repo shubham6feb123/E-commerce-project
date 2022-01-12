@@ -173,6 +173,15 @@ function CheckOutForm({details,setDetails,authtoken}) {
   })
   }catch(e){
      console.log("failed to save details",e)
+     message.error({
+      content: "Failed to save details!",
+      style: {
+        position: "fixed",
+        bottom: "10px",
+        left: "25px",
+        right: "20px",
+      },
+    })
    }
   }
   return (

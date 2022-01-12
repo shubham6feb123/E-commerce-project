@@ -40,7 +40,7 @@ function Cart() {
   };
   return user?.token?(
     <div className="cart__container">
-      {cart.length <= 0 ? <CartEmpty /> : <CartFill cart={cartItem} />}
+      {cart.length <= 0 ? <CartEmpty heading={"My Cart"} text1={"Your cart is empty!"} text2={"Add items to it now."} button={"Shop now"} /> : <CartFill cart={cartItem} />}
      { cart?.length>0&&(
       <div style={{display:"flex",justifyContent:"flex-end",marginRight:"4px",padding:"0px 2px 8px 0px"}}>
      <div className="proceed__to__checkout">

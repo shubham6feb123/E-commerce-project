@@ -2,17 +2,37 @@ import React, { useState } from 'react';
 import "./productItmList.css";
 
 //components
-import {Tabs, Tooltip } from 'antd';
+import {Tabs, Tooltip,message } from 'antd';
 import Rating from '../StarRating/Rating';
 import { useSelector } from 'react-redux';
+import ProductReview from '../productReview/ProductReview';
+import { postReview } from "../../functions/review";
 
-function ProductItmList({product,id,slug}) {
+function ProductItmList({product,id,slug,review}) {
     const [borderColor,setBorderColor] = useState(false);
     const {user} = useSelector((state)=>({...state}));
+    const [reviewMessage,setReviewMessage] = useState("")
     // console.log("product item",product);
     const selectColor = (e)=>{
     //   console.log(e,e.target.style)
       setBorderColor(!borderColor);
+    }
+    const submitReview = async()=>{
+    try{  
+    if(reviewMessage.length>100){
+         message.warning({content:"Character limit 100 exceed",style:{position:"fixed",bottom:"0px",right:"35%"}})
+      }else if(reviewMessage===""){
+        message.warning({content:"Review field cant not be empty!",style:{position:"fixed",bottom:"0px",right:"35%"}})
+      }
+      else{
+          const review = await postReview(user?.token,reviewMessage,id);
+          console.log("review submit",review);
+          message.success({content:"Review submitted!",style:{position:"fixed",bottom:"0px",right:"35%"}})
+      }
+    }catch(error){
+        console.log("error from review",error,error.message)
+        message.error({content:"Review already submitted!",style:{position:"fixed",bottom:"0px",right:"35%"}})
+    }
     }
     return (
         <>
@@ -61,14 +81,24 @@ function ProductItmList({product,id,slug}) {
             </div>
 
         </div>
-           {/* description in tabs */}
+           {/* description review rating in tabs */}
            <div className="tabs">
                 <Tabs type="card">
                     <Tabs.TabPane tab="Description" key="1">
                         {product.description}
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="Reviews" key="2">
-                        {product.title}
+                       {
+                           
+                          review?.map((rev,index)=>(
+                             <ProductReview key={index} message={rev?.message} postedBy={rev?.postedBy} user={user}/>
+                           ))
+    
+                       }
+                       <div className="review__input">
+                       <input className="form-control" type="text" value={reviewMessage} placeholder='Submit Review....' onChange={(e)=>{setReviewMessage(e.target.value)}}/>
+                       <button type="button" onClick={submitReview} >Submit</button>
+                       </div>
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="Rate Product" key="3">
                        <Rating id={id} token={user?.token} slug={slug}/>

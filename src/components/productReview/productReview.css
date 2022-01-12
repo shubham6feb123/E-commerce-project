@@ -1,0 +1,26 @@
+.review__container{
+    width: fit-content;
+    padding: 0px 10px;
+    margin: 0px 0px 12px 0px; 
+    border-radius: 6px;
+}
+
+.review__container > .review__box>.reviewed__by{
+    font-weight: bold;
+    text-align: left;
+    padding: 2px 4px;
+    /* background-color: #e4f1f1; */
+    width: max-content;
+    border-radius: 4px;
+    font-size: 13px;
+    margin: 0px;
+
+}
+
+.review__container > .review__box>.review__message{
+    text-align: left;
+    /* background: #f1f1f1; */
+    padding: 0.1rem 0rem 0.2rem 2rem;
+    width: fit-content;
+    margin: 0px;
+}

@@ -57,6 +57,41 @@
   color: #2774f0;
 }
 
+.ant-tabs-content {
+  display: flex;
+  width: 100%;
+  overflow: scroll;
+  max-height: 200px;
+}
+
+.review__input{
+  display: flex;
+  position: sticky;
+  bottom: 0px;
+}
+
+.review__input>input{
+  outline: none;
+  margin-right: 13px;
+}
+
+.review__input>input:focus-within{
+  outline: none;
+}
+
+.review__input button{
+  background-color: #f46326;
+  border: none;
+  padding: 0px 24px;
+  border-radius: 2px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.review__input button:focus-within{
+  outline: none;
+}
+
 @media screen and (max-width: 650px) {
   .tabs .ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap {
     justify-content: center;

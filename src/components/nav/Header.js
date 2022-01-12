@@ -3,32 +3,30 @@ import { NavLink, useHistory } from "react-router-dom";
 import "./header.css";
 //images
 import flipkartLogo from './flipkartLogo.png'
+import { Badge, Avatar } from 'antd';
 import {
-  ShopOutlined,
   ShoppingCartOutlined,
-  UserOutlined,
-  LogoutOutlined,
+  PoweroffOutlined ,
   UserAddOutlined,
-  LockOutlined,
+  LockFilled,
   LoginOutlined,
-  ProfileOutlined,
-  WindowsOutlined,
-  HeartOutlined,
+  WindowsFilled,
+  SkinFilled,
+  HeartFilled,
+  QuestionCircleFilled
 } from "@ant-design/icons";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "../searchBar/SearchBar";
 
-
+const style = {
+  color:"black",
+  fontWeight:500
+}
 function Header() {
-  const [showDropDown, setShowDropDown] = useState(false);
   let dispatch = useDispatch();
   const history = useHistory();
-  let { user } = useSelector((state) => ({ ...state }));
-
-  const DropDown = () => {
-    setShowDropDown(!showDropDown);
-  };
+  let { user,cart } = useSelector((state) => ({ ...state }));
 
   const logout = () => {
     firebase.auth().signOut();
@@ -50,30 +48,18 @@ function Header() {
             />
           </NavLink>
         </div>
-        {/* <div className="header__searchbar">
-          <input type="search" name="" id="" placeholder="Search" />
-          <SearchOutlined />
-        </div> */}
         <SearchBar/>
         <div className="header__navigationOptions">
-          <ShopOutlined title="shop" />
-          <ShoppingCartOutlined title="cart" />
-          <UserOutlined title="user" onClick={DropDown} />
-        </div>
-      </div>
-      <div
-        className={
-          showDropDown
-            ? "header__user__dropdown header__user__dropdown__appear"
-            : "header__user__dropdown"
-        }
-      >
+          <div className="my__avatar">
+          <Avatar src="https://joeschmoe.io/api/v1/random" />
+          <div
+        className="header__user__dropdown" >
         <ul>
           {!user && (
             <li>
               <NavLink to="/login">
               <LoginOutlined />
-                LOGIN
+                <span style={style}>Login</span>
               </NavLink>
             </li>
           )}
@@ -81,58 +67,70 @@ function Header() {
             <li>
               <NavLink to="/register">
                 <UserAddOutlined />
-                REGISTER
+                <span style={style}>Register</span>
               </NavLink>
             </li>
           )}
          
           {user && (
             <li >
-              <NavLink to="/">
-              <ProfileOutlined />
-                PROFILE
-              </NavLink>
-            </li>
-          )}
-          {user && (
-            <li >
-              <NavLink to="/">
-              <HeartOutlined />
-                WISHLIST
+              <NavLink to="/user/wishlist">
+              <HeartFilled />
+               <span style={style}>Wishlist</span> 
               </NavLink>
             </li>
           )}
            {user && (
-            <li onClick={logout}>
-              <NavLink to="/">
-                <LogoutOutlined />
-                LOGOUT
+            <li >
+              <NavLink to="/user/orders">
+              <SkinFilled />
+               <span style={style}>Orders</span>
               </NavLink>
             </li>
           )}
+        
           {user&&(<li>
             <NavLink to="/userpassword">
-            <LockOutlined />
-              PASSWORD
+            <LockFilled/>
+             <span style={style}>Password</span>
             </NavLink>
           </li>)}
-          {user&&(<li>
+          {user&&user.role==="admin"&& (<li>
             {
               user.role==="admin"?(
                 <NavLink to="/admin">
-            <WindowsOutlined />
-              ADMIN PANEL
+            <WindowsFilled />
+             <span style={style}>Admin</span>
             </NavLink>
-              ):(
-                <NavLink to="/">
-            <WindowsOutlined />
-              ABOUT US
-            </NavLink>
-            
-              )
+              ):""
             }
           </li>)}
+          {user && (
+            <li>
+              <NavLink to="/support">
+                <QuestionCircleFilled /> 
+               <span style={style}>Support</span>
+              </NavLink>
+            </li>
+          )}
+          {user && (
+            <li onClick={logout}>
+              <NavLink to="/">
+                <PoweroffOutlined /> 
+               <span style={style}>Logout</span>
+              </NavLink>
+            </li>
+          )}
         </ul>
+      </div>
+          </div>
+          {/* cart */}
+        <NavLink to="/cart">
+        <Badge count={cart.length}>
+          <ShoppingCartOutlined/>
+        </Badge>
+        </NavLink>  
+        </div>
       </div>
       <div className="header__behind__strip"></div>
     </>

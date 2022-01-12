@@ -12,16 +12,16 @@
 }
 
 .page__not__found__button{
-
-background-color: rgba(42, 42, 150, 0.5);
-border: none;
-outline: none;
-cursor: pointer;
-padding: 8px;
-border-radius: 23px;
+    background-color: #2774F0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 1px;
+    color: white;
 }
 .page__not__found__button:hover{
-    background-color: rgba(42, 42, 150, 0.66); 
+    background-color:#2774F0;;
 }
 /* .lottie__conatiner{
 
