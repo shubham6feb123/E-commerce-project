@@ -268,3 +268,52 @@ exports.SearchFilters = async (req, res) => {
      handleStar(res, req, stars);
   }
 };
+
+
+//handling review
+exports.addReview = async(req,res)=>{
+  try {
+    const products = await product.findById(req.params.productId).exec();
+    const user = await User.findOne({email:req.user.email}).exec();
+    const {review} = req.body;
+    //if reviews exist
+    let existingReviewObject = products.review.find(
+      (element) => element.postedBy.toString() === user._id.toString()
+    );
+  
+    if(existingReviewObject===undefined){//add review
+      let reviewAdded = await product.findByIdAndUpdate(
+        { _id: req.params.productId },
+        {
+          $push: { review: { message: review, postedBy: user._id } },
+        },
+        { new: true }
+      );
+      
+      // console.log("review added", reviewAdded);
+      res.status(200).json(reviewAdded);
+    }else{
+      throw new Error("review already added");
+    }
+
+  } catch (error) {
+    res.status(403).json(error)
+  }
+}
+
+//get all reviews
+exports.getUser = async(req,res)=>{
+  try {
+    // console.log("params",req.params.productId);
+    const user = await User.findById(req.params.userId).exec();
+    // const user = await User.findOne({ email: req.user.email }).exec();
+    // console.log("singleProduct",singleProduct);
+    // console.log("existingRatingObject",existingRatingObject);
+    res.json({role:user.role,
+             name:user.name})
+   
+  } catch (error) {
+    console.log("yet not rated",error)
+    res.status(400).json(error);
+  }
+}

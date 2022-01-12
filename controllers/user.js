@@ -2,6 +2,7 @@ const User = require("../models/user");
 const Cart = require("../models/cart");
 const Order = require("../models/orders");
 const Product  = require("../models/product");
+const nodemailer = require("nodemailer");
 
 exports.saveDetails = async (req, res) => {
   try {
@@ -74,7 +75,7 @@ exports.getAllOrders = async(req,res)=>{
 try {
   let user = await User.findOne({email:req.user.email});
   const orders = await Order.find({orderdBy:user._id}).populate("products.product").populate("orderdBy").sort({createdAt:-1}).exec();
-console.log("orders------>",orders);
+// console.log("orders------>",orders);
 if(orders.length>0){
   res.json(orders);
 }
@@ -85,4 +86,38 @@ else{
   console.log("error to get ordedrs")
 }
 
+}
+
+exports.sendMail = async(req,res)=>{
+  try {
+    const {message,requestSubject,email} = req.body;
+    console.log(req.body);
+    let transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: process.env.MY_GMAIL, // generated ethereal user
+      pass: process.env.MY_PASS, // generated ethereal password
+    },
+    });
+    
+    let mailOptions = {
+      from: process.env.MY_GMAIL,
+      to: process.env.MY_GMAIL2,
+      subject: requestSubject,
+      html:`<h2>FlipShop Support Page</h2><br/>
+            <b>Request Subject:- ${requestSubject}</b><br/>
+            <b>Sender:- ${email}</b><br/>
+            <p>Message:- ${message}</p>`,
+    };
+
+    let emailsent = await transporter.sendMail(mailOptions);
+    // console.log("email sent",emailsent);
+
+    res.json({sent:true})
+  } catch (error) {
+    console.log("error from support",error)
+    res.status(400).json({sent:false})
+  }
 }

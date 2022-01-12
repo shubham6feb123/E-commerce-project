@@ -17,7 +17,7 @@ cart:{
 },
 wishlist:[{
   type:ObjectId,
-  ref:"product"
+  ref:"PRODUCT"
 }],
 details:{
   type:{

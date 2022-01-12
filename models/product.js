@@ -59,6 +59,10 @@ const productSchema = new mongoose.Schema({
         star:Number,
         postedBy:{type:ObjectId,ref:"User"}
     }],
+    review:[{
+        message:String,
+        postedBy:{type:ObjectId,ref:"User"}
+    }],
    
 },
 {timeStamps:true})

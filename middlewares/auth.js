@@ -5,9 +5,9 @@ exports.authCheck = async(req,res,next)=>{
     try {  
         // console.log('headers---->',req.headers); //token
         const token = req.headers.authtoken;
+        // console.log("token",token)
        const firebaseUser = await admin.auth().verifyIdToken(token);
-       console.log('firebaseUser',firebaseUser);
-
+    //    console.log('firebaseUser',firebaseUser);
        req.user = firebaseUser;
       next();
     } 
