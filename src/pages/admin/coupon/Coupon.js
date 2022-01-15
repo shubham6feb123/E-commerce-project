@@ -34,7 +34,7 @@ function Coupon() {
 
   const submitCoupon = () => {
     if (formDetails.name && formDetails.discount && formDetails.expiry) {
-      console.log("sub", formDetails);
+      // console.log("sub", formDetails);
       createCoupon();
     }
   };

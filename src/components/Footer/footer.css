@@ -1,0 +1,56 @@
+.footer__container {
+  text-align: center;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 20px;
+  border: 1px solid #0000002e;
+}
+
+.developer__details {
+    padding: 16px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.developer__details span {
+  margin: 5px 10px;
+}
+
+.developer__details span .anticon-github svg {
+  color: black;
+  font-size: 20px;
+}
+
+.developer__details span .anticon-linkedin svg {
+    color: #0277B5;
+    font-size: 20px;
+  }
+
+.developer__details span .anticon-mail svg {
+    color: red;
+    font-size: 20px;
+  }
+
+  .developer__details span .anticon-phone svg {
+  color: green;
+  font-size: 20px;
+}
+
+@media screen and (max-width:500px) {
+    .footer__container{
+        padding: 0px;
+        border: none;
+    }
+
+    .app__details{
+        font-size: 12px;
+        padding: 3px 0px;
+    }
+
+    .developer__details{
+        padding: 1px 10px;
+        font-size: 12px;
+    }
+}

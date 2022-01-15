@@ -27,6 +27,7 @@ import {
 } from "@david.kucsai/react-pdf-table";
 import Logo from "../../components/nav/flipkartLogo.png";
 import { useHistory } from "react-router-dom";
+import { message } from "antd";
 
 function History() {
   const [getOrders, setGetOrders] = useState(null);
@@ -43,6 +44,7 @@ function History() {
       setGetOrders(orders.data);
     } catch (error) {
       setGetOrders(null);
+      message.error({content:"No orders are available!",style:{position:"fixed",bottom:"0px",right:"35%"}})
        history.push("/")
     }
   };

@@ -1,35 +1,37 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useEffect,lazy,Suspense } from "react";
+import { useDispatch } from "react-redux";
+import { auth } from "./firebase";
+import { currentUser } from "./functions/auth";
 import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Header from "./components/nav/Header";
+import Loading from "./components/Loading/Loading";
 // import Shop from "./pages/Shop";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import CompleteRegistrationForm from "./pages/auth/CompleteRegistrationForm";
-import ForgotPassword from "./pages/auth/ForgotPassword";
-import NotFound from "./pages/pageNotFound/NotFound";
-import { auth } from "./firebase";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { currentUser } from "./functions/auth";
-import History from "./pages/user/History";
-import WishList from "./pages/user/WishList";
-import UserRoutes from "./components/routes/UserRoutes";
-import Password from "./pages/user/Password";
-import AdminRoutes from "./components/routes/AdminRoutes";
-import Dashboard from "./pages/admin/Dashboard";
-import SingleProduct from "./pages/singleProductPage/SingleProduct";
-import Search from "./pages/search/Search";
-import SearchRoute from "./components/routes/SearchRoute";
-import Cart from "./components/Cart/Cart";
-import CheckOut from "./pages/checkOut/CheckOut";
-import Payment from "./pages/payment/Payment";
-import PaymentSuccessfull from "./pages/payment/PaymentSuccessfull";
-import PaymentFailed from "./pages/payment/PaymentFailed";
-import NotLogin from "./components/routes/NotLogin";
-import Support from "./pages/user/Support";
+const CompleteRegistrationForm = lazy(()=> import('./pages/auth/CompleteRegistrationForm'))
+const ForgotPassword = lazy(()=>import("./pages/auth/ForgotPassword"));
+const NotFound = lazy(()=>import("./pages/pageNotFound/NotFound"));
+const History = lazy(()=>import("./pages/user/History"));
+const WishList = lazy(()=>import("./pages/user/WishList"));
+const UserRoutes = lazy(()=>import("./components/routes/UserRoutes"));
+const Password  =  lazy(()=>import("./pages/user/Password"));
+const AdminRoutes = lazy(()=>import("./components/routes/AdminRoutes"));
+const Dashboard = lazy(()=>import("./pages/admin/Dashboard"));
+const SingleProduct = lazy(()=>import("./pages/singleProductPage/SingleProduct"));
+const Search = lazy(()=>import("./pages/search/Search"));
+const SearchRoute = lazy(()=>import("./components/routes/SearchRoute"));
+const Cart = lazy(()=>import("./components/Cart/Cart"));
+const CheckOut = lazy(()=>import("./pages/checkOut/CheckOut"));
+const Payment = lazy(()=>import("./pages/payment/Payment"));
+const PaymentSuccessfull = lazy(()=>import("./pages/payment/PaymentSuccessfull"));
+const PaymentFailed = lazy(()=>import("./pages/payment/PaymentFailed"));
+const NotLogin = lazy(()=>import("./components/routes/NotLogin"));
+const Support = lazy(()=>import("./pages/user/Support"));
+const Footer = lazy(()=>import("./components/Footer/Footer"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -63,6 +65,7 @@ const App = () => {
   });
 
   return (
+    <Suspense fallback={<Loading/>}>
     <div className="app">
       <Router>
         <Header />
@@ -115,8 +118,10 @@ const App = () => {
           </UserRoutes>
           <Route exact component={NotFound} />
         </Switch>
+        <Footer/>
       </Router>
     </div>
+    </Suspense>
   );
 };
 

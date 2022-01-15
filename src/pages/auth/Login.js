@@ -49,9 +49,9 @@ function Login() {
         //role based redirect
   const roleBaseRedirect = (res)=>{
     if(res.data.role === "admin"){
-     history.push("/admin");
+     history.push("/");
     }else{
-      history.push("/user/history");
+      history.push("/");
     }
   }
 

@@ -9,6 +9,7 @@ import {Button} from 'antd';
 // import {DeleteOutlined} from '@ant-design/icons';
 import {upload}from '../../functions/cloudinaryImageUpload'
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 
 
@@ -42,13 +43,13 @@ const uploadChange = async(e)=>{
    allUploadedFiles = [...allUploadedFiles,uploadedImg.data];
   //  console.log("alluploaded files---",allUploadedFiles);
     setValues(prev=>({...prev,images:allUploadedFiles}))
-
     setUploading(false)
+    toast.success("Product images uploaded!",{position:"bottom-right"})
   //  console.log("uploaded image------>",uploadedImg);
    setImages([])
   } catch (error) {
-
   //  console.log("uploading err", error);
+  toast.error("Failed to upload images",{position:"bottom-right"})
 
   }
 

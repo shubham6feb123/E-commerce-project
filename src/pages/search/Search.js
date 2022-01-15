@@ -12,8 +12,8 @@ import {UpCircleOutlined} from "@ant-design/icons";
 //css
 import "./search.css";
 import SearchFilters from "../../components/SearchFilters/SearchFilters";
-
-// import product from '../../../../server/models/product';
+import { useHistory } from "react-router-dom";
+import {message} from "antd"
 
 function Search() {
   const [products, setProducts] = useState([]);
@@ -21,6 +21,7 @@ function Search() {
   const [loading, setLoading] = useState(true);
   const [searchFilter,setSearchFilter] = useState(false);
   const { search } = useSelector((state) => ({ ...state }));
+  const history = useHistory();
 
   useEffect(() => {
     loadProductBySearchText({ query: search.text });
@@ -37,6 +38,8 @@ function Search() {
       setLoading(false);
       //   console.log("all products from search",allproducts.data);
     } catch (error) {
+      message.error({content:"Product not found!",style:{position:"fixed",bottom:"0px",right:"35%"}})
+      history.push("/")
       setLoading(true);
     }
   };

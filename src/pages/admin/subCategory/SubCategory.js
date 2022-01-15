@@ -91,7 +91,7 @@ function SubCategory() {
       .catch((error) => {});
   };
 
-  console.log("subcategories",subcategories)
+  // console.log("subcategories",subcategories)
 
   const onSearch = (value)=>{
 setKeywords(value)

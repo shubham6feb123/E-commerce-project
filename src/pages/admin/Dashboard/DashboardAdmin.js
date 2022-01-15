@@ -15,10 +15,11 @@ function DashboardAdmin() {
     const loadAllOrders = async()=>{
           try{
               const allOrders = await getOrders(user?.token,user?.email);
-              console.log("allorders---->",allOrders);
+              // console.log("allorders---->",allOrders);
               setOrders(allOrders.data.order)
           }catch(error){
-            console.log("failed to get orders")
+            message.error({content: "Failed to load orders",
+              style: { position: "fixed", bottom: "10px", left: "25px",right:"20px" },})
           }
     };
 
@@ -46,8 +47,8 @@ function DashboardAdmin() {
        <>
        <div className='table-responsive'>
        {
-         orders.map((order)=>(
-          <table className="table table-bordered" key={order._id} style={{backgroundColor:"#80808047",border:"2px solid black"}}>
+         orders.map((order,index)=>(
+          <table className="table table-bordered" key={order._id+index} style={{backgroundColor:"#80808047",border:"2px solid black"}}>
           <tbody>
             <tr>
               <th scope="row">Order Id</th>

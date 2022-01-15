@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState,useEffect } from "react";
 
 //css
 import "./singleProduct.css";
@@ -33,8 +33,10 @@ function SingleProduct() {
   const [data, setData] = useState({});
   const [heartIcon, SetHeartIcon] = useState(true);
   const [clicked, SetClicked] = useState(false);
-  const [products,setProducts] = useState([]);
   const [avgRateing,setAvgRating] = useState(null)
+  const [similarProducts,setSimilarProducts] = useState([]);
+
+
 
   //redux
   const dispatch = useDispatch();
@@ -44,15 +46,22 @@ function SingleProduct() {
 
   useLayoutEffect(() => {
     loadSingleProduct(slug);
-    similarProduct();
     loadAverageRating(slug);
     // eslint-disable-next-line
   }, [slug]);
 
+  useEffect(()=>{
+    similarProduct();
+  },[data])
+
   const similarProduct = async()=>{
     const similarProduct  = await GetProductsByCount(10);
-    setProducts([...similarProduct.data]);
+    // console.log("similar products",similarProduct)
+    let products = []; 
+     products = [...similarProduct.data];
+    setSimilarProducts(products?.filter(p=>(p?.category?.name===data?.category?.name)))
   }
+
   const heartIconClicked = () => {
     alert();
     putToWishList();
@@ -147,7 +156,7 @@ let cart = [];
             <button className="cart" onClick={addToCartHandle}>
               <ShoppingFilled /> ADD TO CART
             </button>
-            <button className="bolt">
+            <button className="bolt" onClick={addToCartHandle}>
               <ThunderboltFilled /> BUY NOW
             </button>
           </div>
@@ -190,9 +199,9 @@ let cart = [];
 
       </div> 
                    
-      <div className="similar__products">
-        <ProductCard products={products} heading={"Similar Products"}/>
-      </div>
+     {similarProducts.length>0?(<div className="similar__products">
+     <ProductCard products={similarProducts} heading={"Suggested Products"}/>
+      </div>):""}
       {alert()}
     </>
   );

@@ -7,6 +7,7 @@ import "./productCard.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Card1 from "../Card/Card1";
+import Loading from "../Loading/Loading";
 
 function ProductCard({ products,heading }) {
 
@@ -28,14 +29,14 @@ function ProductCard({ products,heading }) {
           breakpoint: { max: 464, min: 400 },
           items: 1
         },
-        // mobile: {
-        //   breakpoint: { max: 400, min: 0 },
-        //   items: 1
-        // }
+        mobile: {
+          breakpoint: { max: 400, min: 0 },
+          items: 1
+        }
       };
 
 
-  return (
+  return products.length<0?<Loading/>:(
     <>
       <div className="product__card__container">
         <div className="product__card__label">

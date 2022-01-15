@@ -20,12 +20,12 @@ function ProductList() {
   const loadAllProducts = () => {
     GetProductsByCount(100)
       .then((res) => {
-        console.log("all the products", res.data);
+        // console.log("all the products", res.data);
         setProducts(res.data);
         setLoading(false);
       })
       .catch((err) => {
-        console.log("error in getting products", err);
+        // console.log("error in getting products", err);
         setLoading(true);
       });
   };
@@ -36,7 +36,7 @@ function ProductList() {
       if(remove){
         console.log("delete request send",slug)
         DeleteProduct(slug).then((res)=>{
-          console.log("delete response",res)
+          // console.log("delete response",res)
           toast.success('product deleted',{position:"bottom-right"})
           loadAllProducts();
         }).catch((err)=>{

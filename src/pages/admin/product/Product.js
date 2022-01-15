@@ -102,8 +102,10 @@ const buttonClick = ()=>{
   if(title&&description&&price&&color.length>0&&brand&&images.length>0&&quantity&&subcategories.length>0&&category&&shipping){
     // console.log("all values",values);
     createProduct(values)
+    toast.success("Product created!",{position:"bottom-right"})
   }else{
-      console.log("fill all the fileds")
+      // console.log("fill all the fileds")
+      toast.success("Fill all fields",{position:"bottom-right"})
   }
 }
 
