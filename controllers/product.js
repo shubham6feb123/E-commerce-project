@@ -43,8 +43,9 @@ exports.DeleteProduct = async (req, res) => {
 
 exports.GetSingleProduct = async (req, res) => {
   try {
-    const singleProduct = await product.findOne({ slug: req.params.slug });
+    const singleProduct = await product.findOne({ slug: req.params.slug }).populate("category").exec();
     res.status(200).json(singleProduct);
+    // console.log("single product page k liye",singleProduct)
   } catch (error) {
     // console.log("error in fetching product");
     res.status(400).json(error);
@@ -137,11 +138,14 @@ const handleQuery = async (res, req, query) => {
       .populate("subcategories")
       .populate("postedBy")
       .exec();
-
-    res.json(products);
+    if (products.length > 0) {
+      res.json(products);
+    } else {
+      throw new Error("product not found");
+    }
   } catch (error) {
-    console.log(error.message);
-    res.status(403).json({ error: error });
+    // console.log(error.message);
+    res.status(404).json(error);
   }
 };
 
@@ -155,10 +159,15 @@ const handlePrice = async (res, req, price) => {
       .populate("postedBy")
       .exec();
     // console.log("products price",products)
-    res.status(200).json(products);
+    
+    if (products.length > 0) {
+      res.status(200).json(products);
+    } else {
+      throw new Error("product not found");
+    }
   } catch (error) {
-    console.log(error.message);
-    res.status(403).json({ error: error });
+    // console.log(error.message);
+    res.status(404).json(error);
   }
 };
 
@@ -172,10 +181,14 @@ const handleCategory = async (res, req, category) => {
       .populate("postedBy")
       .exec();
     // console.log("category search",products.data)
-    res.status(200).json(products);
+    if (products.length > 0) {
+      res.status(200).json(products);
+    } else {
+      throw new Error("product not found");
+    }
   } catch (error) {
-    console.log(error.message);
-    res.status(403).json({ error: error });
+    // console.log(error.message);
+    res.status(404).json(error);
   }
 };
 
@@ -190,10 +203,14 @@ const handleBrand = async (res, req, brand) => {
       .populate("postedBy")
       .exec();
     // console.log("category search",products.data)
-    res.status(200).json(products);
+    if (products.length > 0) {
+      res.status(200).json(products);
+    } else {
+      throw new Error("product not found");
+    }
   } catch (error) {
-    console.log(error.message);
-    res.status(403).json({ error: error });
+    // console.log(error.message);
+    res.status(404).json(error);
   }
 };
 
@@ -223,18 +240,18 @@ const handleStar = (res, req, stars) => {
             .populate("category")
             .populate("subcategories")
             .populate("postedBy")
-            .exec((err,products)=>{
-               if(err){
+            .exec((err, products) => {
+              if (err) {
                 res.status(403).json({ error: err });
-               }else{
-                res.status(200).json(products)
-               }
-            })
+              } else {
+                res.status(200).json(products);
+              }
+            });
           // res.status(200).json(aggregates)
         }
       });
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
     res.status(403).json({ error: error });
   }
 };
@@ -265,23 +282,23 @@ exports.SearchFilters = async (req, res) => {
 
   if (stars) {
     // console.log("stars", stars);
-     handleStar(res, req, stars);
+    handleStar(res, req, stars);
   }
 };
 
-
 //handling review
-exports.addReview = async(req,res)=>{
+exports.addReview = async (req, res) => {
   try {
     const products = await product.findById(req.params.productId).exec();
-    const user = await User.findOne({email:req.user.email}).exec();
-    const {review} = req.body;
+    const user = await User.findOne({ email: req.user.email }).exec();
+    const { review } = req.body;
     //if reviews exist
     let existingReviewObject = products.review.find(
       (element) => element.postedBy.toString() === user._id.toString()
     );
-  
-    if(existingReviewObject===undefined){//add review
+
+    if (existingReviewObject === undefined) {
+      //add review
       let reviewAdded = await product.findByIdAndUpdate(
         { _id: req.params.productId },
         {
@@ -289,31 +306,24 @@ exports.addReview = async(req,res)=>{
         },
         { new: true }
       );
-      
+
       // console.log("review added", reviewAdded);
       res.status(200).json(reviewAdded);
-    }else{
+    } else {
       throw new Error("review already added");
     }
-
   } catch (error) {
-    res.status(403).json(error)
+    res.status(403).json(error);
   }
-}
+};
 
 //get all reviews
-exports.getUser = async(req,res)=>{
+exports.getUser = async (req, res) => {
   try {
-    // console.log("params",req.params.productId);
     const user = await User.findById(req.params.userId).exec();
-    // const user = await User.findOne({ email: req.user.email }).exec();
-    // console.log("singleProduct",singleProduct);
-    // console.log("existingRatingObject",existingRatingObject);
-    res.json({role:user.role,
-             name:user.name})
-   
+    res.json({ role: user.role, name: user.name });
   } catch (error) {
-    console.log("yet not rated",error)
+    console.log("yet not rated", error);
     res.status(400).json(error);
   }
-}
+};

@@ -83,7 +83,8 @@ else{
   throw "no orders";
 }
 } catch (error) {
-  console.log("error to get ordedrs")
+  // console.log("error to get ordedrs",error)
+  res.status(404).json({message:"order not found"})
 }
 
 }
